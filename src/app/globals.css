@@ -5,7 +5,7 @@
   --background: #1e1e1e; /* graphite background */
   --foreground: #ededed; /* light foreground text */
   --accent: #c8a2ff;     /* lilac accent color */
-  --font-sans: 'Inter', 'Poppins', 'Arial', sans-serif;
+  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 

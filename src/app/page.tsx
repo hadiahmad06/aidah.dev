@@ -15,10 +15,10 @@ export default function Home() {
       <Projects />
 
       {/* Skills Section */}
-      <Skills />
+      {/* <Skills /> */}
 
       {/* About Me Section */}
-      <AboutMe />
+      {/* <AboutMe /> */}
 
       {/* Contact Section */}
       <Contact />
