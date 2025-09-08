@@ -1,11 +1,40 @@
 export default function Contact() {
-  return (
-    <section className="bg-background text-foreground py-24 flex flex-col items-center gap-8">
-      <h2 className="text-3xl font-bold accent">Contact</h2>
-      <div className="w-full max-w-4xl h-64 border-2 border-gray-700 rounded-lg flex items-center justify-center">
-        {/* Placeholder for contact form or contact information */}
-        <p className="text-gray-500">Contact form will go here</p>
-      </div>
-    </section>
-  );
-}
+    return (
+      <footer className="bg-background text-foreground py-8 border-t border-gray-700">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+          <div className="flex flex-row gap-6 self-start">
+            <a
+              href="https://www.linkedin.com/in/hadiahmad06"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl text-gray-400 hover:underline"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/hadiahmad06"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl text-gray-400 hover:underline"
+            >
+              GitHub
+            </a>
+          </div>
+          <div className="flex flex-col gap-2 items-end">
+            <a
+              href="mailto:hadi.ahmad.1709@icloud.com"
+              className="text-gray-400 hover:underline"
+            >
+              hadi.ahmad.1709@icloud.com
+            </a>
+            <a
+              href="mailto:ahmad287@umn.edu"
+              className="text-gray-400 hover:underline"
+            >
+              ahmad287@umn.edu
+            </a>
+          </div>
+        </div>
+      </footer>
+    );
+  }
