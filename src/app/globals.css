@@ -2,11 +2,11 @@
 
 /* Define global CSS variables for colors and fonts */
 :root {
-  --background: #0a0a0a; /* dark background */
+  --background: #1e1e1e; /* graphite background */
   --foreground: #ededed; /* light foreground text */
   --accent: #c8a2ff;     /* lilac accent color */
-  --font-sans: 'Comic Neue', 'Quicksand', 'Arial Rounded MT Bold', 'Arial', 'Helvetica', sans-serif;
-  --font-mono: 'Fira Mono', 'Courier New', monospace;
+  --font-sans: 'Inter', 'Poppins', 'Arial', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 @theme inline {
@@ -19,18 +19,20 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #151515; /* graphite background for dark mode */
     --foreground: #ededed;
     --accent: #c8a2ff;
   }
 }
 
 body {
-  background: var(--background);
+  background: #1e1e1e;
   color: var(--foreground);
   font-family: var(--font-sans);
   margin: 0;
   padding: 0;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* Accent utility class */
@@ -41,4 +43,17 @@ body {
 /* Example for lilac background highlights */
 .bg-accent {
   background-color: var(--accent);
+}
+
+/* Cursor highlight */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--cursor-x, 50%) var(--cursor-y, 50%), rgba(50,50,50,0.2) 0%, transparent 120px);
+  transition: background 0.1s;
 }
