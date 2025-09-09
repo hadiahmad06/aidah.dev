@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReactiveButton from "./common/ReactiveButton";
 
 type Project = {
   title: string;            // Display name
@@ -172,28 +173,24 @@ export default function Projects() {
   return (
     <section className="flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
       <h1 className="text-5xl font-bold text-center mb-8">Projects</h1>
-      <header className="flex space-x-8 mb-6 px-32">
+      <header className="flex space-x-4 mb-6 px-32">
         {projects.map((project, index) => (
-          <button
+          <ReactiveButton
             key={project.title}
             onClick={() => setCurrentIndex(index)}
-            className={`relative text-2xl font-bold pb-1 transition-colors duration-300 focus:outline-none`}
-            style={{
-              fontFamily: "var(--font-sans)",
-              color: index === currentIndex ? "var(--accent)" : "var(--foreground)",
-            }}
+            className={`relative text-2xl font-bold px-4 py-3 transition-colors duration-300 focus:outline-none font-sans ${index === currentIndex ? "text-accent" : "text-foreground"}`}
           >
             {project.title}
             {index === currentIndex && (
               <span
-                className="absolute left-0 bottom-0 w-full h-0.5 rounded"
+                className="block mt-1 w-full h-0.5 rounded"
                 style={{
-                  background: `linear-gradient(90deg, var(--accent), var(--accent))`,
+                  background: `linear-gradient(90deg, var(--accent), var(--secondary))`,
                   animation: "underlineSlide 0.5s ease forwards",
                 }}
               />
             )}
-          </button>
+          </ReactiveButton>
         ))}
       </header>
       <style>

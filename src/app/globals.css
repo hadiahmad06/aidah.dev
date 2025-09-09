@@ -5,6 +5,7 @@
   --background: #1e1e1e00; /* graphite background */
   --foreground: #ededed; /* light foreground text */
   --accent: #c8a2ff;     /* lilac accent color */
+  --secondary: #FF69B4;
   --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
@@ -22,6 +23,7 @@
     --background: #15151500; /* graphite background for dark mode */
     --foreground: #ededed;
     --accent: #c8a2ff;
+    --secondary: #FF69B4;
   }
 }
 
@@ -38,6 +40,9 @@ body {
 /* Accent utility class */
 .accent {
   color: var(--accent);
+}
+.secondary {
+  color: var(--secondary);
 }
 
 /* Example for lilac background highlights */

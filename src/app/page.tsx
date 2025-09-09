@@ -25,8 +25,12 @@ export default function Home() {
     <div className="bg-background text-foreground min-h-screen font-sans flex flex-col">
       {/* Hero Section */}
       <Hero />
+      
       {/* Resume Section */}
       {/* <Resume /> */}
+
+      {/* About Me Section */}
+      <AboutMe />
 
       {/* Projects Section */}
       <Projects />
@@ -34,8 +38,6 @@ export default function Home() {
       {/* Skills Section */}
       {/* <Skills /> */}
 
-      {/* About Me Section */}
-      <AboutMe />
 
 
       {/* Contact Section */}
