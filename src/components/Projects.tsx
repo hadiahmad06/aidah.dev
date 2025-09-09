@@ -171,7 +171,7 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <section className="flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
+    <section id="Projects" className="flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
       <h1 className="text-5xl font-bold text-center mb-8">Projects</h1>
       <header className="flex space-x-4 mb-6 px-32">
         {projects.map((project, index) => (

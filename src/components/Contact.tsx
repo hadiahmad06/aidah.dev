@@ -1,6 +1,6 @@
 export default function Contact() {
     return (
-      <footer className="bg-background text-foreground py-8 border-t border-gray-700">
+      <footer id="Contact" className="bg-background text-foreground py-8 border-t border-gray-700">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
           <div className="flex flex-row gap-6 self-start">
             <a

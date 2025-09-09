@@ -116,3 +116,12 @@ body::after {
 .button-dark:hover::after {
   opacity: 1;
 }
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); } /* moves up by 10px at midpoint */
+}
+
+.bob {
+  animation: bob 1.5s ease-in-out infinite;
+}

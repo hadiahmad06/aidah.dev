@@ -20,7 +20,7 @@ const ReactiveButton: React.FC<ReactiveButtonProps> = ({ children, className = "
     <button
       onMouseMove={handleMouseMove}
       onClick={onClick}
-      className={`${dark ? `button-dark` : `button`} relative overflow-hidden px-6 py-3 rounded-2xl ${className}`}
+      className={`${dark ? `button-dark` : `button`} relative overflow-hidden rounded-2xl ${className}`}
     >
       <span className="relative z-10 font-semibold text-white">{children}</span>
     </button>
