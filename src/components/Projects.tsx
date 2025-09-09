@@ -106,6 +106,7 @@ const projects: Project[] = [
     endDate: "Present",
     body: (
       <div>
+        
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
         <p>
           A cross-platform workout tracker and planner designed to help users log and track long-term strength training progress efficiently.
@@ -132,6 +133,36 @@ const projects: Project[] = [
       </div>
     ),
     link: "https://github.com/hadiahmad06/vectra", // Optional: Add if there is a demo or repo
+  },
+  {
+    title: "aidah.dev",
+    alias: "This Website",
+    type: "Personal Project",
+    emoji: "🌐",
+    startDate: "Sep 2025",
+    endDate: "Present",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
+          This website serves as my personal portfolio, designed to showcase my projects, experience, and interests in a clean and interactive way.
+        </p>
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Fully responsive design for desktop and mobile</li>
+          <li>Interactive project section with smooth animations</li>
+          <li>Custom cursor-reactive gradient effects</li>
+          <li>Minimalist design centered on readability and accessibility</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Next.js with React and TypeScript</li>
+          <li>Tailwind CSS for styling</li>
+          <li>Deployed on Vercel for fast global hosting</li>
+        </ul>
+      </div>
+    ),
+    link: "https://aidah.dev",
   }
 ];
 
@@ -139,8 +170,9 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <section className="flex flex-col items-start gap-12 py-24 px-8 max-w-5xl mx-auto">
-      <header className="flex space-x-8 mb-6">
+    <section className="flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
+      <h1 className="text-5xl font-bold text-center mb-8">Projects</h1>
+      <header className="flex space-x-8 mb-6 px-32">
         {projects.map((project, index) => (
           <button
             key={project.title}
@@ -178,43 +210,58 @@ export default function Projects() {
           }
         `}
       </style>
-      <div className="flex-1">
-        <div className="mb-4">
-          <h2 className="text-3xl font-bold flex items-center gap-2 mb-1">
-            {projects[currentIndex].emoji && (
-              <span className="text-3xl">{projects[currentIndex].emoji}</span>
-            )}
-            <span>{projects[currentIndex].title}</span>
-            {projects[currentIndex].alias && (
-              <span className="ml-2 text-base text-gray-500 font-medium">({projects[currentIndex].alias})</span>
-            )}
-          </h2>
-          {(projects[currentIndex].startDate || projects[currentIndex].endDate) && (
-            <div className="text-sm text-gray-600 mb-1">
-              {projects[currentIndex].startDate}
-              {projects[currentIndex].endDate
-                ? ` - ${projects[currentIndex].endDate}`
-                : ""}
-            </div>
-          )}
-          {projects[currentIndex].description && (
-            <p className="text-lg text-gray-700 mb-2">{projects[currentIndex].description}</p>
-          )}
-          {projects[currentIndex].link && (
-            <a
-              href={projects[currentIndex].link}
-              className="inline-block text-accent underline mb-2"
-              target="_blank"
-              rel="noopener noreferrer"
+      {/* <div className="w-full"> */}
+        <div
+          className="flex transition-transform duration-500"
+          style={{
+            transform: `translateX(-${currentIndex / projects.length * 100}%)`,
+            width: `${projects.length * 100}%`,
+            transitionTimingFunction: "cubic-bezier(0.25, 0.1, 0.2, 1.2)"
+          }}
+        >
+          {projects.map((project) => (
+            <div
+              key={project.title}
+              className="px-36"
+              style={{
+                width: `${1/projects.length * 100}%`
+              }}
             >
-              {projects[currentIndex].link}
-            </a>
-          )}
+              <div className="mb-4">
+                <h2 className="text-3xl font-bold flex items-center gap-2 mb-1">
+                  {project.emoji && <span className="text-3xl">{project.emoji}</span>}
+                  <span>{project.title}</span>
+                </h2>
+                {project.alias && (
+                    <div className="text-lg text-gray-400 font-medium mt-1">{project.alias}</div>
+                )}
+                {(project.startDate || project.endDate) && (
+                  <div className="text-sm text-gray-600 mb-2">
+                    {project.startDate}
+                    {project.endDate ? ` - ${project.endDate}` : ""}
+                  </div>
+                )}
+                {project.description && (
+                  <p className="text-lg text-gray-700 mb-2">{project.description}</p>
+                )}
+                {project.link && (
+                  <a
+                    href={project.link}
+                    className="inline-block text-accent underline mb-2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.link}
+                  </a>
+                )}
+              </div>
+              {project.body && (
+                <div className="max-w-none">{project.body}</div>
+              )}
+            </div>
+          ))}
         </div>
-        {projects[currentIndex].body && (
-          <div className="prose max-w-none">{projects[currentIndex].body}</div>
-        )}
-      </div>
+      {/* </div> */}
     </section>
   );
 }

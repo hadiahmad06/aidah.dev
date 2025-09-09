@@ -23,7 +23,7 @@ export default function Hero() {
   const scale = Math.max(0.3, 1 - scrollY / 1000);
 
   return (
-    <section className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-background px-8 gap-12 md:gap-20">
+    <section className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-background px-32 mt-16 gap-12">
       {/* Left Column */}
       <div
         className="flex flex-col items-start gap-4 md:flex-1 font-mono"

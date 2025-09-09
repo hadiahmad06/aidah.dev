@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-background text-foreground min-h-screen font-sans px-8 py-12 sm:px-20 sm:py-24 flex flex-col">
+    <div className="bg-background text-foreground min-h-screen font-sans flex flex-col">
       {/* Hero Section */}
       <Hero />
       {/* Resume Section */}
