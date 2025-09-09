@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import HeroDescription from "@/components/Hero/HeroDescription";
+import ReactiveButton from "../common/ReactiveButton";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -50,12 +51,24 @@ export default function Hero() {
           transformOrigin: "right top",
         }}
       >
-        <button className="px-6 py-3 bg-accent text-background font-semibold rounded-lg hover:opacity-80 transition" onClick={() => { /* Placeholder for View Projects action */ }}>
-          View Projects
-        </button>
-        <button className="px-6 py-3 border-2 border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-background transition" onClick={() => { /* Placeholder for Download Resume action */ }}>
+        <ReactiveButton
+          className="bg-accent px-6 py-3 text-lg font-semibold"
+          onClick={() => window.open('/resume.pdf', '_blank', 'noopener,noreferrer')}
+          dark={true}
+        >
+          View Resume
+        </ReactiveButton>
+        <ReactiveButton
+          className="px-6 py-3 text-lg font-semibold"
+          onClick={() => {
+            const link = document.createElement('a');
+            link.href = '/resume.pdf';
+            link.download = 'HADI_AHMAD_RESUME.pdf';
+            link.click();
+          }}
+        >
           Download Resume
-        </button>
+        </ReactiveButton>
         <div className="h-4" />
       </div>
     </section>

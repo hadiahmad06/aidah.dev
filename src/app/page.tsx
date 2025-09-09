@@ -5,7 +5,6 @@ import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import AboutMe from "@/components/AboutMe";
 import Contact from "@/components/Contact";
-import Resume from "@/components/Resume";
 import { useEffect } from "react";
 
 export default function Home() {
@@ -23,9 +22,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-background text-foreground min-h-screen font-sans px-8 py-12 sm:px-20 sm:py-24 flex flex-col gap-32">
+    <div className="bg-background text-foreground min-h-screen font-sans px-8 py-12 sm:px-20 sm:py-24 flex flex-col">
       {/* Hero Section */}
       <Hero />
+      {/* Resume Section */}
+      {/* <Resume /> */}
 
       {/* Projects Section */}
       <Projects />
@@ -36,11 +37,9 @@ export default function Home() {
       {/* About Me Section */}
       <AboutMe />
 
+
       {/* Contact Section */}
       <Contact />
-
-      {/* Resume Section */}
-      <Resume />
     </div>
   );
 }

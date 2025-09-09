@@ -57,9 +57,57 @@ body::after {
   background: linear-gradient(
     165deg,
     oklch(0.2 0.02 290) 0%,
-    oklch(0.17 0.02 290) calc((var(--cursor-y, 50%) + 67vh)/3),
+    oklch(0.17 0.02 290) calc((var(--cursor-y, 50%)+(var(--cursor-x, 50%)) + 50vh)/2),
     oklch(0.15 0.01 290) 100%
   );
   transition: background 0.1s;
   z-index: -1;
+}
+
+.button {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* smooth animation */
+}
+
+.button:hover {
+  transform: scale(1.05); /* grows 5% on hover */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x,50%) var(--y,50%), oklch(1 0 0 / 0.15) 0%, rgba(0,0,0,0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease; /* smooth fade-in/out */
+}
+
+.button:hover::after {
+  opacity: 1;
+}
+
+.button-dark {
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-dark:hover {
+  transform: scale(1.05); /* grows 5% on hover */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.button-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--x,50%) var(--y,50%), oklch(0 0 0 / 0.3) 0%, rgba(0,0,0,0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease; /* smooth fade-in/out */
+}
+
+.button-dark:hover::after {
+  opacity: 1;
 }
