@@ -53,10 +53,10 @@ export default function Home() {
     <div className="bg-background text-foreground min-h-screen font-sans flex flex-col">
       {headerOpacity !== 0 && 
         <header
-          className="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-50 p-4 transition-opacity duration-300"
+          className="fixed hidden sm:inline top-0 left-0 w-full z-50 transition-opacity duration-300"
           style={{ backgroundColor: `rgba(var(--background-rgb), ${headerOpacity})` }}
         >
-          <div className="flex flex-row w-full justify-between px-12" style={{ opacity: headerOpacity }}>
+          <div className="backdrop-blur-md shadow-lg p-4 flex flex-row w-full justify-between px-12" style={{ opacity: headerOpacity }}>
             <ReactiveButton 
               className="text-2xl font-bold py-2 px-4"
               onClick={() => router.push('/#Hero')}

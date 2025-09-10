@@ -1,7 +1,7 @@
 export default function AboutMe() {
   return (
-    <section id="AboutMe" className="text-white py-24 px-32 flex flex-col gap-4 full-w mx-auto">
-      <h1 className="text-5xl font-bold text-center">About Me</h1>
+    <section id="AboutMe" className="text-white py-24 px-12 sm:px-32 flex flex-col gap-4 full-w mx-auto">
+      <h1 className="text-5xl font-bold text-center mb-4 sm:mb-0">About Me</h1>
       <h2 className="text-3xl font-bold text-start">Purpose</h2>
       <div className="flex items-center gap-4 text-gray-300 text-lg">
         <span>👋</span>

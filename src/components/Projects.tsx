@@ -19,45 +19,6 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "PlanUMN",
-    alias: "Graduation Planner",
-    type: "Partner Project",
-    emoji: "📅",
-    startDate: "May 2025",
-    endDate: "Aug 2025",
-    body: (
-      <div>
-        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
-        <p>
-          PlanUMN is a comprehensive graduation planning tool designed to simplify course scheduling and degree tracking for University of Minnesota students.
-        </p>
-        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
-        <ul className="list-disc list-inside ml-4">
-          <li>Drag-and-drop interactive schedule builder</li>
-          <li>Autocomplete course search with real-time suggestions</li>
-          {/* <li>Rule-based scheduling to avoid conflicts and prerequisites</li>
-          <li>Degree audit integration to track graduation requirements</li> */}
-          <li>Import transcripts to fill classes from previous semesters</li>
-          <li>Cloud storage for plans, enabling plan sharing</li>
-        </ul>
-        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
-        <ul className="list-disc list-inside ml-4">
-          <li>React with TypeScript for frontend development</li>
-          <li>Next.js (serverless) for backend API and SSR/SSG</li>
-          <li>Utilized Supabase for relational data storage and user authentication.</li>
-          <li>Ensured plans are kept secure with RLS, user authentication, and server-side permission checks.</li>
-          <li>RESTful APIs for fuzzy search, quick course info, and manipulating plans.</li>
-        </ul>
-        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
-        <ul className="list-disc list-inside ml-4">
-          <li>Used by over 80 students pre-release</li>
-          {/* <li>Featured in the University’s student innovation showcase</li> */}
-        </ul>
-      </div>
-    ),
-    link: "https://planu.mn"
-  },
-  {
     title: "Mirage",
     alias: "AI Assistant",
     type: "Personal Project",
@@ -136,6 +97,45 @@ const projects: Project[] = [
     link: "https://github.com/hadiahmad06/vectra", // Optional: Add if there is a demo or repo
   },
   {
+    title: "PlanUMN",
+    alias: "Graduation Planner",
+    type: "Partner Project",
+    emoji: "📅",
+    startDate: "May 2025",
+    endDate: "Aug 2025",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
+          PlanUMN is a comprehensive graduation planning tool designed to simplify course scheduling and degree tracking for University of Minnesota students.
+        </p>
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Drag-and-drop interactive schedule builder</li>
+          <li>Autocomplete course search with real-time suggestions</li>
+          {/* <li>Rule-based scheduling to avoid conflicts and prerequisites</li>
+          <li>Degree audit integration to track graduation requirements</li> */}
+          <li>Import transcripts to fill classes from previous semesters</li>
+          <li>Cloud storage for plans, enabling plan sharing</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>React with TypeScript for frontend development</li>
+          <li>Next.js (serverless) for backend API and SSR/SSG</li>
+          <li>Utilized Supabase for relational data storage and user authentication.</li>
+          <li>Ensured plans are kept secure with RLS, user authentication, and server-side permission checks.</li>
+          <li>RESTful APIs for fuzzy search, quick course info, and manipulating plans.</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Used by over 80 students pre-release</li>
+          {/* <li>Featured in the University’s student innovation showcase</li> */}
+        </ul>
+      </div>
+    ),
+    link: "https://planu.mn"
+  },
+  {
     title: "aidah.dev",
     alias: "This Website",
     type: "Personal Project",
@@ -171,16 +171,17 @@ export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <section id="Projects" className="flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
+    <section id="Projects" className="overflow-hidden flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
       <h1 className="text-5xl font-bold text-center mb-8">Projects</h1>
-      <header className="flex space-x-4 mb-6 px-32">
+      <header className="flex justify-center sm:justify-start space-x-4 mb-6 px-8 sm:px-32">
         {projects.map((project, index) => (
           <ReactiveButton
             key={project.title}
             onClick={() => setCurrentIndex(index)}
             className={`relative text-2xl font-bold px-4 py-3 transition-colors duration-300 focus:outline-none font-sans ${index === currentIndex ? "text-accent" : "text-foreground"}`}
           >
-            {project.title}
+            <span className="hidden sm:inline">{project.title}</span>
+            <span className="sm:hidden">{project.emoji}</span>
             {index === currentIndex && (
               <span
                 className="block mt-1 w-full h-0.5 rounded"
@@ -219,7 +220,7 @@ export default function Projects() {
           {projects.map((project) => (
             <div
               key={project.title}
-              className="px-36"
+              className="px-12 sm:px-36"
               style={{
                 width: `${1/projects.length * 100}%`
               }}
