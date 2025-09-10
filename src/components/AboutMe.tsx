@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 export default function AboutMe() {
   return (
     <section id="AboutMe" className="text-white py-24 px-12 sm:px-32 flex flex-col gap-4 full-w mx-auto">

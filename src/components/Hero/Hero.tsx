@@ -51,7 +51,7 @@ export default function Hero() {
           }}
         >
           <h2 className="text-4xl sm:text-5xl text-foreground/70">
-            Hey, I'm
+            {"Hey, I'm"}
           </h2>
           <h1 className="text-7xl sm:text-8xl font-bold playful-font">
             <span className="accent">Hadi A</span>
