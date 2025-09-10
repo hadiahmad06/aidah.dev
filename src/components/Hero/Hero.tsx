@@ -77,14 +77,9 @@ export default function Hero() {
           </ReactiveButton>
           <ReactiveButton
             className="px-4 py-2 sm:px-6 sm:py-3 text-md sm:text-lg font-semibold"
-            onClick={() => {
-              const link = document.createElement('a');
-              link.href = '/resume.pdf';
-              link.download = 'HADI_AHMAD_RESUME.pdf';
-              link.click();
-            }}
+            onClick={() => {router.push("/#Projects")}}
           >
-            Download Resume
+            My Projects
           </ReactiveButton>
           <div className="h-4" />
         </div>

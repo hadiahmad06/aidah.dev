@@ -53,7 +53,7 @@ export default function Home() {
       {headerOpacity !== 0 && 
         <header
           className="fixed hidden sm:inline top-0 left-0 w-full z-50 transition-opacity duration-300"
-          style={{ backgroundColor: `rgba(var(--background-rgb), ${headerOpacity})` }}
+          style={{ backgroundColor: 'transparent' }}
         >
           <div className="backdrop-blur-md shadow-lg p-4 flex flex-row w-full justify-between px-12" style={{ opacity: headerOpacity }}>
             <ReactiveButton 
