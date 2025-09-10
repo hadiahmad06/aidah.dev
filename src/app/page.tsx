@@ -6,9 +6,12 @@ import Skills from "@/components/Skills";
 import AboutMe from "@/components/AboutMe";
 import Contact from "@/components/Contact";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import ReactiveButton from "@/components/common/ReactiveButton";
 
 export default function Home() {
   const [headerOpacity, setHeaderOpacity] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,9 +56,34 @@ export default function Home() {
           className="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-50 p-4 transition-opacity duration-300"
           style={{ backgroundColor: `rgba(var(--background-rgb), ${headerOpacity})` }}
         >
-          <h1 className="text-xl font-bold" style={{ opacity: headerOpacity }}>
-            My Header
-          </h1>
+          <div className="flex flex-row w-full justify-between px-12" style={{ opacity: headerOpacity }}>
+            <ReactiveButton 
+              className="text-2xl font-bold py-2 px-4"
+              onClick={() => router.push('/#Hero')}
+            >
+              Hadi Ahmad
+            </ReactiveButton>
+            <div className="flex flex-row gap-6 self-end">
+              <ReactiveButton 
+                className="text-xl text-gray-400 py-2 px-4"
+                onClick={() => router.push('/#AboutMe')}
+              >
+                About Me
+              </ReactiveButton>
+              <ReactiveButton 
+                className="text-xl text-gray-400 py-2 px-4"
+                onClick={() => router.push('/#Projects')}
+              >
+                Projects
+              </ReactiveButton>
+              <ReactiveButton 
+                className="text-xl text-gray-400 py-2 px-4"
+                onClick={() => router.push('/#Contact')}
+              >
+                Contact
+              </ReactiveButton>
+            </div>
+          </div>
         </header>
       }
       {/* Hero Section */}

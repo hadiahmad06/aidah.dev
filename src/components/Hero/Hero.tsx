@@ -26,7 +26,7 @@ export default function Hero() {
 
   return (
     <section id="Hero" className="flex flex-col justify-center min-h-screen">
-      <div className="flex flex-col md:flex-row items-center justify-center h-full px-32 gap-12 mt-20">
+      <div className="flex flex-col md:flex-row items-center justify-center h-full px-12 sm:px-32 gap-12 mt-24 sm:px-32">
         {/* Left Column */}
         <div
           className="flex flex-col items-start gap-4 md:flex-1 font-mono"
@@ -75,7 +75,7 @@ export default function Hero() {
           <div className="h-4" />
         </div>
       </div>
-      <div className="flex items-center justify-center w-full mt-20">
+      <div className="flex items-center justify-center w-full mt-24">
         <ReactiveButton 
           className="rounded-full px-2 py-2 bob"
           onClick={() => router.push('/#AboutMe')}>
