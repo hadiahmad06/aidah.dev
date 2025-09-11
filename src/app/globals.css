@@ -61,7 +61,7 @@ body::after {
   pointer-events: none;
   background: linear-gradient(
     165deg,
-    oklch(0.2 0.02 290) 0%,
+    oklch(0.23 0.06 290) 0%,
     oklch(0.17 0.02 290) calc((var(--cursor-y, 50%)+(var(--cursor-x, 50%)) + 50vh)/2),
     oklch(0.15 0.01 290) 100%
   );
