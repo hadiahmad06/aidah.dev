@@ -19,6 +19,22 @@ export default function Contact() {
             >
               GitHub
             </a>
+            <a
+              href="https://instagram.com/aidahdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl text-gray-400 hover:underline"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://x.com/aidahdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl text-gray-400 hover:underline"
+            >
+              {"X (Twitter)"}
+            </a>
           </div>
           <div className="flex flex-col gap-2 items-end">
             <a
