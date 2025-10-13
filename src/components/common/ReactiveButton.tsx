@@ -21,6 +21,9 @@ const ReactiveButton: React.FC<ReactiveButtonProps> = ({ children, className = "
       onMouseMove={handleMouseMove}
       onClick={onClick}
       className={`${dark ? `button-dark` : `button`} relative overflow-hidden rounded-2xl ${className}`}
+      style={{
+        background: dark ? `linear-gradient(90deg, color-mix(in oklch, var(--accent) 60%, transparent), color-mix(in oklch, var(--secondary) 60%, transparent))` : ""
+      }}
     >
       <span className="relative z-10 font-semibold text-white">{children}</span>
     </button>

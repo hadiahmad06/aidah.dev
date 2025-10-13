@@ -1,3 +1,72 @@
+/* === Floating Stars Background === */
+
+/* CSS variables for cursor tracking */
+:root {
+  --cursor-x: 0px;
+  --cursor-y: 0px;
+}
+
+.stars {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  overflow: visible;
+  /* Move the star field slightly opposite the cursor */
+  transform: translate(
+    calc(var(--cursor-x, 0px) * -0.03),
+    calc(var(--cursor-y, 0px) * -0.03)
+  );
+  transition: transform 0.05s cubic-bezier(0.4,0,0.2,1);
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 70%, #c8a2ff 100%);
+  box-shadow: 0 0 6px 2px #c8a2ff88, 0 0 2px 1px #fff8;
+  opacity: 0.7;
+  animation: floatStar 4s ease-in-out infinite alternate;
+}
+
+/* Optional: for some larger/smaller stars */
+.star.star-lg {
+  width: 3.5px;
+  height: 3.5px;
+  opacity: 0.85;
+  filter: blur(0.5px);
+}
+.star.star-sm {
+  width: 1px;
+  height: 1px;
+  opacity: 0.4;
+}
+
+@keyframes floatStar {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+    filter: blur(0.1px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0.5px);
+  }
+  60% {
+    opacity: 0.8;
+    filter: blur(0.2px);
+  }
+  100% {
+    transform: translateY(-6px) scale(1.1);
+    opacity: 0.6;
+    filter: blur(1px);
+  }
+}
 @import "tailwindcss";
 
 /* Define global CSS variables for colors and fonts */
@@ -6,7 +75,7 @@
   --foreground: #ededed; /* light foreground text */
   --accent: #c8a2ff;     /* lilac accent color */
   --secondary: #FF69B4;
-  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-sans: 'Montserrat', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
@@ -35,6 +104,8 @@ body {
   padding: 0;
   position: relative;
   overflow-x: hidden;
+  z-index: 0;
+  /* Ensure stars are behind content */
 }
 
 /* Accent utility class */
@@ -61,9 +132,16 @@ body::after {
   pointer-events: none;
   background: linear-gradient(
     165deg,
-    oklch(0.23 0.06 290) 0%,
-    oklch(0.17 0.02 290) calc((var(--cursor-y, 50%)+(var(--cursor-x, 50%)) + 50vh)/2),
-    oklch(0.15 0.01 290) 100%
+    oklch(0.17 0.05 310) 0%,
+    oklch(0.17 0.04 300) calc(25% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
+    oklch(0.17 0.04 295) calc(50% + (var(--cursor-x, 50%) - 50%) * 0.5 + (var(--cursor-y, 50%) - 50%) * 0.5),
+    oklch(0.16 0.02 290) calc(75% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
+    oklch(0.15 0.00 290) 100%
+    /* oklch(62.793% 0.25768 29.223) 0%,
+    oklch(87.27% 0.24874 148.616) calc(20% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
+    oklch(45.641% 0.31003 266.137) calc(50% + (var(--cursor-x, 50%) - 50%) * 0.5 + (var(--cursor-y, 50%) - 50%) * 0.5),
+    oklch(86.655% 0.29397 142.6) calc(80% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
+    oklch(62.793% 0.25768 29.223) 100% */
   );
   transition: background 0.1s;
   z-index: -1;
@@ -129,3 +207,17 @@ body::after {
 html {
   scroll-behavior: smooth;
 }
+/* Optionally, you can use body::before for the star field, but .stars container is recommended for flexibility */
+/* 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  transform: translate(
+    calc(var(--cursor-x, 0px) * -0.03),
+    calc(var(--cursor-y, 0px) * -0.03)
+  );
+} 
+*/
