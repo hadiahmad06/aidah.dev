@@ -8,8 +8,8 @@ import ReactiveButton from "../common/ReactiveButton";
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
+  // const [mouseX, setMouseX] = useState(0);
+  // const [mouseY, setMouseY] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,20 +31,20 @@ export default function Hero() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      setMouseX(event.clientX - centerX);
-      setMouseY(event.clientY - centerY);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  // useEffect(() => {
+  //   const handleMouseMove = (event: MouseEvent) => {
+  //     const centerX = window.innerWidth / 2;
+  //     const centerY = window.innerHeight / 2;
+  //     setMouseX(event.clientX - centerX);
+  //     setMouseY(event.clientY - centerY);
+  //   };
+  // 
+  //   window.addEventListener("mousemove", handleMouseMove);
+  //   return () => window.removeEventListener("mousemove", handleMouseMove);
+  // }, []);
 
   // Simple linear scale calculation based on scroll position, min scale 0.6
-  const scale = Math.max(0.3, 1 - scrollY / 1000);
+  const scale = Math.max(0.7, 1 - scrollY / 5000);
 
   return (
     <section 
@@ -61,7 +61,7 @@ export default function Hero() {
         <div
           className="flex flex-col items-start gap-4 md:flex-1 font-mono origin-top sm:origin-top-left"
           style={{  
-            // transform: !isMobile ? `scale(${scale}) translate(${mouseX * 0.02}px, ${mouseY * 0.02}px)` : undefined,
+            transform: !isMobile ? `scale(${scale})` : undefined,
           }}
         >
           <h2 className="text-4xl sm:text-5xl text-foreground/70">
@@ -82,7 +82,7 @@ export default function Hero() {
         <div
           className="flex flex-col sm:flex-col gap-4 md:flex-none origin-top sm:origin-top-right"
           style={{
-            // transform: !isMobile ? `scale(${scale}) translate(${mouseX * -0.02}px, ${mouseY * 0.02}px)` : undefined,
+            transform: !isMobile ? `scale(${scale})` : undefined,
           }}
         >
 

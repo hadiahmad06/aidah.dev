@@ -29,9 +29,9 @@ const projects: Project[] = [
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
         <p>
-          Jiko is an AI-powered assistant that monitors your activity and messages you when you start doomscrolling. 
-          It uses local device analytics and behavior modeling to nudge you back toward focus, like getting a text from a friend asking if you've studied for your midterm yet.
-          (Work in progress!)
+          {"Jiko is an AI-powered assistant that monitors your activity and messages you when you start doomscrolling. \
+          It uses local device analytics and behavior modeling to nudge you back toward focus, like getting a text from a friend asking if you've studied for your midterm yet.\
+          (Work in progress!)"}
         </p>
 
         <h4 className="font-semibold mt-4 mb-1">Features:</h4>
