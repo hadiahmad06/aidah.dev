@@ -19,12 +19,55 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: "Mirage",
+    title: "Jiko",
     alias: "AI Assistant",
     type: "Personal Project",
-    emoji: "🪞",
-    startDate: "Jan 2023",
+    emoji: "🪷",
+    startDate: "October 2025",
     endDate: "Present",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
+          Jiko is an AI-powered assistant that monitors your activity and messages you when you start doomscrolling. 
+          It uses local device analytics and behavior modeling to nudge you back toward focus, like getting a text from a friend asking if you've studied for your midterm yet.
+          (Work in progress!)
+        </p>
+
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Detects when social media or entertainment apps are opened for extended periods</li>
+          <li>Considers upcoming homework, exams, papers due on Canvas</li>
+          <li>Sends personalized reminders via SMS using Twilio integration</li>
+          <li>Analyzes screen time and app usage trends to generate weekly reports</li>
+          <li>Includes an adjustable sensitivity system that learns when to intervene without getting blocked</li>
+        </ul>
+
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Swift + SwiftUI for macOS and iOS agents that track app usage</li>
+          <li>Used Canvas LMS API to track upcoming homework, papers, exams, and other scheduled events.</li>
+          <li>Twilio API for real-time SMS notifications</li>
+        </ul>
+
+        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Built a functional macOS menu bar tracker and iOS app that detect active apps in real time</li>
+          <li>Implemented automatic message dispatch through Twilio when distraction thresholds are crossed</li>
+          <li>Integrated a personalized chatbot trained on my own text history</li>
+          <li>Created early UI mockups (on a piece of paper) for iOS companion dashboard showing focus metrics and screen time breakdown</li>
+        </ul>
+      </div>
+    ),
+    link: "https://jiko.life"
+  },
+  {
+    title: "Mirage",
+    alias: "MacOS LLM Desktop Overlay",
+    type: "Personal Project",
+    emoji: "🪞",
+    startDate: "August 2025",
+    endDate: "October 2025",
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
@@ -64,8 +107,8 @@ const projects: Project[] = [
     alias: "Workout Tracker",
     type: "Personal Project",
     emoji: "💪",
-    startDate: "Nov 2024",
-    endDate: "Present",
+    startDate: "November 2024",
+    endDate: "Paused",
     body: (
       <div>
         
@@ -102,7 +145,7 @@ const projects: Project[] = [
     type: "Partner Project",
     emoji: "📅",
     startDate: "May 2025",
-    endDate: "Aug 2025",
+    endDate: "August 2025",
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
@@ -140,7 +183,7 @@ const projects: Project[] = [
     alias: "This Website",
     type: "Personal Project",
     emoji: "🌐",
-    startDate: "Sep 2025",
+    startDate: "September 2025",
     endDate: "Present",
     body: (
       <div>

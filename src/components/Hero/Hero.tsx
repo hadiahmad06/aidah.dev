@@ -80,7 +80,7 @@ export default function Hero() {
 
         {/* Right Column: CTA Buttons */}
         <div
-          className="flex flex-row sm:flex-col gap-4 md:flex-none origin-top sm:origin-top-right"
+          className="flex flex-col sm:flex-col gap-4 md:flex-none origin-top sm:origin-top-right"
           style={{
             // transform: !isMobile ? `scale(${scale}) translate(${mouseX * -0.02}px, ${mouseY * 0.02}px)` : undefined,
           }}
