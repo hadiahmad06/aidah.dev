@@ -46,7 +46,7 @@ const projects: Project[] = [
         <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
         <ul className="list-disc list-inside ml-4">
           <li>Swift + SwiftUI for macOS and iOS agents that track app usage</li>
-          <li>Used Canvas LMS API to track upcoming homework, papers, exams, and other scheduled events.</li>
+          <li>Node.js backend with scheduled cron jobs and automated trigger evaluation pipelines.</li>
           <li>Twilio API for real-time SMS notifications</li>
         </ul>
 
