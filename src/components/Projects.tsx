@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import ReactiveButton from "./common/ReactiveButton";
 
 type Project = {
@@ -12,6 +12,8 @@ type Project = {
   body?: React.ReactNode;   // Full HTML or JSX content for the body
   emoji?: string;           // Emoji/icon
   image?: string;           // Optional image URL
+  images?: string[];        // Media section images; only the first is currently used
+  videos?: string[];        // Media section videos; only the first is currently used, takes priority over images
   startDate?: string;       // ISO date string or formatted date
   endDate?: string;         // ISO date string or formatted date
   link?: string;            // URL to project or repo
@@ -156,6 +158,7 @@ const projects: Project[] = [
     skills: ["React", "TypeScript", "Next.js", "Supabase", "REST APIs"],
     startDate: "May 2025",
     endDate: "August 2025",
+    videos: ["/media/planumn.mp4"],
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
@@ -235,6 +238,7 @@ const projects: Project[] = [
     startDate: "February 2026",
     endDate: "22 hours",
     link: "https://mnhack26.vercel.app",
+    videos: ["/media/kintsugi.mp4"],
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
@@ -331,6 +335,125 @@ const projects: Project[] = [
     link: "https://aidah.dev",
   }
 ];
+
+function VideoMedia({ src }: { src: string }) {
+  const [muted, setMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    const handleTimeUpdate = () => {
+      if (el.duration) setProgress(el.currentTime / el.duration);
+    };
+    el.addEventListener("timeupdate", handleTimeUpdate);
+    return () => el.removeEventListener("timeupdate", handleTimeUpdate);
+  }, []);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.intersectionRatio < 0.7) {
+          el.pause();
+        } else {
+          el.play().catch(() => {});
+        }
+      },
+      { threshold: [0, 0.7, 1] }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const seekToClientX = (clientX: number) => {
+    const bar = barRef.current;
+    const el = videoRef.current;
+    if (!bar || !el || !isFinite(el.duration)) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    el.currentTime = ratio * el.duration;
+    setProgress(ratio);
+  };
+
+  return (
+    <div className="group relative w-full overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        loop
+        muted={muted}
+        playsInline
+        className="block w-full h-auto"
+      />
+      <button
+        onClick={() => setMuted((m) => !m)}
+        className="absolute bottom-8 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white opacity-100 backdrop-blur-sm transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100"
+        aria-label={muted ? "Unmute video" : "Mute video"}
+      >
+        {muted ? (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+          </svg>
+        )}
+      </button>
+      <div
+        ref={barRef}
+        onPointerDown={(e) => {
+          e.currentTarget.setPointerCapture(e.pointerId);
+          seekToClientX(e.clientX);
+        }}
+        onPointerMove={(e) => {
+          if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+            seekToClientX(e.clientX);
+          }
+        }}
+        className="absolute inset-x-3 bottom-2 z-10 flex h-4 cursor-pointer items-center"
+      >
+        <div className="h-1.5 w-full rounded-full bg-gray-500/60">
+          <div
+            className="h-full rounded-full bg-white"
+            style={{ width: `${progress * 100}%` }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProjectMedia({ video, image, alt }: { video?: string; image?: string; alt: string }) {
+  if (video) {
+    return <VideoMedia src={video} />;
+  }
+
+  if (image) {
+    return (
+      <div className="w-full overflow-hidden rounded-2xl bg-black/10 p-1.5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={image}
+          alt={alt}
+          className="w-full h-auto rounded-xl shadow-[inset_0_2px_14px_rgba(0,0,0,0.45)]"
+        />
+      </div>
+    );
+  }
+
+  return null;
+}
 
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -468,6 +591,16 @@ export default function Projects() {
               </div>
               {project.body && (
                 <div className="max-w-none">{project.body}</div>
+              )}
+              {(project.videos?.[0] || project.images?.[0]) && (
+                <>
+                  <div className="my-10 h-px w-full bg-gradient-to-r from-transparent via-foreground/20 to-transparent" />
+                  <ProjectMedia
+                    video={project.videos?.[0]}
+                    image={project.images?.[0]}
+                    alt={project.title}
+                  />
+                </>
               )}
             </div>
           ))}
