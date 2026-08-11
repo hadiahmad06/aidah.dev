@@ -17,6 +17,7 @@ type Project = {
   link?: string;            // URL to project or repo
   tags?: string[];          // Optional tags for filtering
   hide?: boolean;           // If true, project is not rendered
+  skills?: string[];        // Skill pills shown beside the title; each will eventually link to a portfolio-wide skill index
 };
 
 const projects: Project[] = [
@@ -26,6 +27,7 @@ const projects: Project[] = [
     type: "Personal Project",
     emoji: "🪷",
     hide: true,
+    skills: ["Swift", "SwiftUI", "Node.js", "Twilio API"],
     startDate: "October 2025",
     endDate: "Present",
     body: (
@@ -70,6 +72,7 @@ const projects: Project[] = [
     type: "Personal Project",
     emoji: "🪞",
     hide: true,
+    skills: ["SwiftUI", "React", "TypeScript", "Node.js", "AWS EC2", "RAG", "OpenRouter API"],
     startDate: "August 2025",
     endDate: "October 2025",
     body: (
@@ -112,6 +115,7 @@ const projects: Project[] = [
     type: "Personal Project",
     emoji: "💪",
     hide: true,
+    skills: ["React Native", "TypeScript", "Playwright", "SQLite"],
     startDate: "November 2024",
     endDate: "Paused",
     body: (
@@ -149,6 +153,7 @@ const projects: Project[] = [
     alias: "Graduation Planner",
     type: "Partner Project",
     emoji: "📅",
+    skills: ["React", "TypeScript", "Next.js", "Supabase", "REST APIs"],
     startDate: "May 2025",
     endDate: "August 2025",
     body: (
@@ -189,6 +194,7 @@ const projects: Project[] = [
     alias: "Variable Gain, Bass & Treble Audio Amplifier",
     type: "Course Project",
     emoji: "🎚️",
+    skills: ["LM741 Op-Amps", "Active Filter Design", "FFT Analysis", "Breadboard Prototyping"],
     startDate: "March 2026",
     endDate: "May 2026",
     body: (
@@ -225,6 +231,7 @@ const projects: Project[] = [
     alias: "Global Conflict Awareness Heatmap",
     type: "Hackathon Project — MinneHack '26 (team placomi)",
     emoji: "🌎",
+    skills: ["Python", "SentenceTransformers", "Pandas", "Google Maps API", "Next.js"],
     startDate: "February 2026",
     endDate: "22 hours",
     link: "https://mnhack26.vercel.app",
@@ -262,6 +269,7 @@ const projects: Project[] = [
     alias: "Colon Cancer Gene Expression Project",
     type: "Course Project",
     emoji: "🧬",
+    skills: ["MATLAB", "GraphTucker", "PPI Networks", "BIOGRID"],
     startDate: "April 2025",
     endDate: "May 2025",
     body: (
@@ -296,6 +304,7 @@ const projects: Project[] = [
     alias: "This Website",
     type: "Personal Project",
     emoji: "🌐",
+    skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
     startDate: "September 2025",
     endDate: "Present",
     body: (
@@ -415,10 +424,25 @@ export default function Projects() {
               }}
             >
               <div className="mb-4">
-                <h2 className="text-3xl font-bold flex items-center gap-2 mb-1">
-                  {project.emoji && <span className="text-3xl">{project.emoji}</span>}
-                  <span>{project.title}</span>
-                </h2>
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-2 mb-1">
+                  <h2 className="text-3xl font-bold flex items-center gap-2">
+                    {project.emoji && <span className="text-3xl">{project.emoji}</span>}
+                    <span>{project.title}</span>
+                  </h2>
+                  {project.skills && project.skills.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {project.skills.map((skill) => (
+                        <ReactiveButton
+                          key={skill}
+                          onClick={() => {}}
+                          className="!rounded-full px-3 py-1 text-xs font-semibold"
+                        >
+                          {skill}
+                        </ReactiveButton>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 {project.alias && (
                     <div className="text-lg text-gray-400 font-medium mt-1">{project.alias}</div>
                 )}
