@@ -4,7 +4,8 @@ import { useState } from "react";
 import ReactiveButton from "./common/ReactiveButton";
 
 type Project = {
-  title: string;            // Display name
+  title: string;            // Display name, shown when the project's tab is selected
+  header?: string;          // Label shown in the header tab; falls back to title
   alias?: string;           // Alternate name, e.g., "Workout Tracker"
   type?: string;            // Personal / Partner / Class Project
   description?: string;     // Short text description
@@ -15,6 +16,7 @@ type Project = {
   endDate?: string;         // ISO date string or formatted date
   link?: string;            // URL to project or repo
   tags?: string[];          // Optional tags for filtering
+  hide?: boolean;           // If true, project is not rendered
 };
 
 const projects: Project[] = [
@@ -23,6 +25,7 @@ const projects: Project[] = [
     alias: "AI Assistant",
     type: "Personal Project",
     emoji: "🪷",
+    hide: true,
     startDate: "October 2025",
     endDate: "Present",
     body: (
@@ -66,6 +69,7 @@ const projects: Project[] = [
     alias: "MacOS LLM Desktop Overlay",
     type: "Personal Project",
     emoji: "🪞",
+    hide: true,
     startDate: "August 2025",
     endDate: "October 2025",
     body: (
@@ -107,6 +111,7 @@ const projects: Project[] = [
     alias: "Workout Tracker",
     type: "Personal Project",
     emoji: "💪",
+    hide: true,
     startDate: "November 2024",
     endDate: "Paused",
     body: (
@@ -179,6 +184,111 @@ const projects: Project[] = [
     link: "https://planu.mn"
   },
   {
+    title: "Analog Audio",
+    alias: "Variable Gain, Bass & Treble Audio Amplifier",
+    type: "Course Project",
+    emoji: "🎚️",
+    startDate: "March 2026",
+    endDate: "May 2026",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
+          A three-stage LM741-based audio amplifier with continuously variable gain and adjustable bass and treble tone shaping, compatible with any 3.5mm audio source.
+        </p>
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Three-stage LM741-based audio amplifier</li>
+          <li>Continuously variable gain stage</li>
+          <li>Adjustable bass and treble tone shaping</li>
+          <li>Works with any 3.5mm audio source</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>LM741 op-amps</li>
+          <li>Active filter design</li>
+          <li>FFT / frequency response analysis</li>
+          <li>Breadboard prototyping</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Swept a potentiometer-controlled feedback network to map the amp&apos;s full gain range</li>
+          <li>Identified where the LM741&apos;s 1 MHz gain-bandwidth product started limiting performance, using frequency response analysis</li>
+          <li>Modeled a capacitor-tuned bass shelving filter from feedback theory, then validated it by swapping timing capacitors and observing the shift in corner frequency</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    title: "Kintsugi",
+    alias: "Global Conflict Awareness Heatmap",
+    type: "Hackathon Project — MinneHack '26 (team placomi)",
+    emoji: "🌎",
+    startDate: "February 2026",
+    endDate: "22 hours",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
+          An interactive heat map of global conflict built for MinneHack 2026, combining scraped Twitter data with user-submitted reports to surface underreported crises.
+        </p>
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Interactive heat map of global conflict</li>
+          <li>Combines scraped Twitter data with user-submitted reports</li>
+          <li>Event severity classification via LLM prompting</li>
+          <li>Geolocation extraction from unstructured text</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Python for the NLP pipeline</li>
+          <li>SentenceTransformer and Pandas for processing tweet data</li>
+          <li>Google Maps API for the heat map</li>
+          <li>Next.js for the frontend</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Built a full NLP pipeline in 22 hours, from scraping to classification to geolocation</li>
+          <li>Pitched at MinneHack 2026 as a way to counter centralized media control, surfacing underreported crises without relying on algorithmic or commercial gatekeeping</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    title: "Gene Expression Analysis",
+    alias: "Colon Cancer Gene Expression Project",
+    type: "Course Project",
+    emoji: "🧬",
+    startDate: "April 2025",
+    endDate: "May 2025",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
+          A tensor decomposition pipeline for spatial transcriptomics data, using unsupervised clustering of 3D gene-spot tensors to biologically interpret colon cancer gene expression.
+        </p>
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Tensor decomposition pipeline for spatial transcriptomics data</li>
+          <li>Unsupervised clustering of 3D gene-spot tensors</li>
+          <li>Biological interpretation of resulting clusters</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>MATLAB, including its Deep Learning plugin</li>
+          <li>GraphTucker for spatial feature extraction</li>
+          <li>PPI networks and BIOGRID datasets</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Applied GraphTucker to pull low-rank spatial features out of 3D gene-spot tensors</li>
+          <li>Found clusters tied to immune response, chemoresistance, and tumor growth</li>
+          <li>Presented biological interpretations of the results using PPI network and BIOGRID data</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
     title: "aidah.dev",
     alias: "This Website",
     type: "Personal Project",
@@ -212,18 +322,19 @@ const projects: Project[] = [
 
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const visibleProjects = projects.filter((project) => !project.hide);
 
   return (
     <section id="Projects" className="overflow-hidden flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
       <h1 className="text-5xl font-bold text-center mb-8">Projects</h1>
       <header className="flex justify-center sm:justify-start space-x-4 mb-6 px-8 sm:px-32">
-        {projects.map((project, index) => (
+        {visibleProjects.map((project, index) => (
           <ReactiveButton
             key={project.title}
             onClick={() => setCurrentIndex(index)}
             className={`relative text-2xl font-bold px-4 py-3 transition-colors duration-300 focus:outline-none font-sans ${index === currentIndex ? "text-accent" : "text-foreground"}`}
           >
-            <span className="hidden sm:inline">{project.title}</span>
+            <span className="hidden sm:inline">{project.header ?? project.title}</span>
             <span className="sm:hidden">{project.emoji}</span>
             {index === currentIndex && (
               <span
@@ -255,17 +366,17 @@ export default function Projects() {
         <div
           className="flex transition-transform duration-500"
           style={{
-            transform: `translateX(-${currentIndex / projects.length * 100}%)`,
-            width: `${projects.length * 100}%`,
+            transform: `translateX(-${currentIndex / visibleProjects.length * 100}%)`,
+            width: `${visibleProjects.length * 100}%`,
             transitionTimingFunction: "cubic-bezier(0.25, 0.1, 0.2, 1.2)"
           }}
         >
-          {projects.map((project) => (
+          {visibleProjects.map((project) => (
             <div
               key={project.title}
               className="px-12 sm:px-36"
               style={{
-                width: `${1/projects.length * 100}%`
+                width: `${1/visibleProjects.length * 100}%`
               }}
             >
               <div className="mb-4">
