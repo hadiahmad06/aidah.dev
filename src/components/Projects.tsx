@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import ReactiveButton from "./common/ReactiveButton";
 
 type Project = {
@@ -12,6 +13,8 @@ type Project = {
   body?: React.ReactNode;   // Full HTML or JSX content for the body
   emoji?: string;           // Emoji/icon
   image?: string;           // Optional image URL
+  images?: string[];        // Media section images; only the first is currently used
+  videos?: string[];        // Media section videos; only the first is currently used, takes priority over images
   startDate?: string;       // ISO date string or formatted date
   endDate?: string;         // ISO date string or formatted date
   link?: string;            // URL to project or repo
@@ -156,6 +159,7 @@ const projects: Project[] = [
     skills: ["React", "TypeScript", "Next.js", "Supabase", "REST APIs"],
     startDate: "May 2025",
     endDate: "August 2025",
+    videos: ["/media/planumn.mp4"],
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
@@ -235,6 +239,7 @@ const projects: Project[] = [
     startDate: "February 2026",
     endDate: "22 hours",
     link: "https://mnhack26.vercel.app",
+    videos: ["/media/kintsugi.mp4"],
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
@@ -332,6 +337,119 @@ const projects: Project[] = [
   }
 ];
 
+function VideoMedia({ src, isActive }: { src: string; isActive: boolean }) {
+  const [muted, setMuted] = useState(true);
+  const [showFloating, setShowFloating] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (!isActive) {
+      setShowFloating(false);
+      return;
+    }
+
+    const target = sentinelRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const scrolledPast = entry.boundingClientRect.top < 0;
+        console.log("DEBUG_PIP", { src, top: entry.boundingClientRect.top, ratio: entry.intersectionRatio, scrolledPast });
+        setShowFloating(scrolledPast && entry.intersectionRatio < 0.3);
+      },
+      { threshold: [0, 0.3, 1] }
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [isActive, src]);
+
+  const scrollToVideo = () => {
+    sentinelRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  return (
+    <>
+      <div
+        ref={sentinelRef}
+        className="group relative w-full overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+      >
+        <video
+          src={src}
+          autoPlay
+          loop
+          muted={muted}
+          playsInline
+          disablePictureInPicture
+          className="block w-full h-auto"
+        />
+        <button
+          onClick={() => setMuted((m) => !m)}
+          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100"
+          aria-label={muted ? "Unmute video" : "Mute video"}
+        >
+          {muted ? "🔇" : "🔊"}
+        </button>
+      </div>
+      {showFloating && createPortal(
+        <>
+          <div
+            onClick={scrollToVideo}
+            className="hidden sm:block fixed bottom-6 right-6 z-50 w-72 cursor-pointer overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10 transition-transform duration-300 hover:scale-105"
+          >
+            <video
+              src={src}
+              autoPlay
+              loop
+              muted
+              playsInline
+              disablePictureInPicture
+              className="block w-full h-auto pointer-events-none"
+            />
+          </div>
+          <button
+            onClick={scrollToVideo}
+            aria-label="Scroll to project video"
+            className="bob sm:hidden fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-foreground"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </>,
+        document.body
+      )}
+    </>
+  );
+}
+
+function ProjectMedia({ video, image, alt, isActive }: { video?: string; image?: string; alt: string; isActive: boolean }) {
+  if (video) {
+    return <VideoMedia src={video} isActive={isActive} />;
+  }
+
+  if (image) {
+    return (
+      <div className="w-full overflow-hidden rounded-2xl bg-black/10 p-1.5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={image}
+          alt={alt}
+          className="w-full h-auto rounded-xl shadow-[inset_0_2px_14px_rgba(0,0,0,0.45)]"
+        />
+      </div>
+    );
+  }
+
+  return null;
+}
+
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const visibleProjects = projects.filter((project) => !project.hide);
@@ -415,7 +533,7 @@ export default function Projects() {
             transitionTimingFunction: "cubic-bezier(0.25, 0.1, 0.2, 1.2)"
           }}
         >
-          {visibleProjects.map((project) => (
+          {visibleProjects.map((project, index) => (
             <div
               key={project.title}
               className="px-12 sm:px-36"
@@ -468,6 +586,17 @@ export default function Projects() {
               </div>
               {project.body && (
                 <div className="max-w-none">{project.body}</div>
+              )}
+              {(project.videos?.[0] || project.images?.[0]) && (
+                <>
+                  <div className="my-10 h-px w-full bg-gradient-to-r from-transparent via-foreground/20 to-transparent" />
+                  <ProjectMedia
+                    video={project.videos?.[0]}
+                    image={project.images?.[0]}
+                    alt={project.title}
+                    isActive={index === currentIndex}
+                  />
+                </>
               )}
             </div>
           ))}
