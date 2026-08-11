@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import ReactiveButton from "./common/ReactiveButton";
 
 type Project = {
@@ -323,30 +323,62 @@ const projects: Project[] = [
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const visibleProjects = projects.filter((project) => !project.hide);
+  const tabRowRef = useRef<HTMLDivElement>(null);
+  const tabLabelRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  useLayoutEffect(() => {
+    const row = tabRowRef.current;
+    const labels = tabLabelRefs.current.filter(
+      (el): el is HTMLSpanElement => el !== null
+    );
+    if (!row || labels.length === 0) return;
+
+    const recompute = () => {
+      labels.forEach((el) => { el.style.fontSize = ""; });
+      const baseFontSize = parseFloat(getComputedStyle(labels[0]).fontSize);
+      const availableWidth = row.clientWidth;
+      const naturalWidth = row.scrollWidth;
+      const ratio = naturalWidth > availableWidth ? availableWidth / naturalWidth : 1;
+      const scaledSize = baseFontSize * ratio;
+      labels.forEach((el) => { el.style.fontSize = `${scaledSize}px`; });
+    };
+
+    recompute();
+    const observer = new ResizeObserver(recompute);
+    observer.observe(row);
+    return () => observer.disconnect();
+  }, [visibleProjects.length]);
 
   return (
     <section id="Projects" className="overflow-hidden flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
       <h1 className="text-5xl font-bold text-center mb-8">Projects</h1>
-      <header className="flex justify-center sm:justify-start space-x-4 mb-6 px-8 sm:px-32">
-        {visibleProjects.map((project, index) => (
-          <ReactiveButton
-            key={project.title}
-            onClick={() => setCurrentIndex(index)}
-            className={`relative text-2xl font-bold px-4 py-3 transition-colors duration-300 focus:outline-none font-sans ${index === currentIndex ? "text-accent" : "text-foreground"}`}
-          >
-            <span className="hidden sm:inline">{project.header ?? project.title}</span>
-            <span className="sm:hidden">{project.emoji}</span>
-            {index === currentIndex && (
+      <header className="mb-6 px-8 sm:px-32">
+        <div ref={tabRowRef} className="flex justify-center sm:justify-start space-x-4">
+          {visibleProjects.map((project, index) => (
+            <ReactiveButton
+              key={project.title}
+              onClick={() => setCurrentIndex(index)}
+              className={`relative shrink-0 font-bold px-4 py-3 transition-colors duration-300 focus:outline-none font-sans ${index === currentIndex ? "text-accent" : "text-foreground"}`}
+            >
               <span
-                className="block mt-1 w-full h-0.5 rounded"
-                style={{
-                  background: `linear-gradient(90deg, var(--accent), var(--secondary))`,
-                  animation: "underlineSlide 0.5s ease forwards",
-                }}
-              />
-            )}
-          </ReactiveButton>
-        ))}
+                ref={(el) => { tabLabelRefs.current[index] = el; }}
+                className="hidden sm:inline whitespace-nowrap text-2xl"
+              >
+                {project.header ?? project.title}
+              </span>
+              <span className="sm:hidden text-2xl">{project.emoji}</span>
+              {index === currentIndex && (
+                <span
+                  className="block mt-1 w-full h-0.5 rounded"
+                  style={{
+                    background: `linear-gradient(90deg, var(--accent), var(--secondary))`,
+                    animation: "underlineSlide 0.5s ease forwards",
+                  }}
+                />
+              )}
+            </ReactiveButton>
+          ))}
+        </div>
       </header>
       <style>
         {`
