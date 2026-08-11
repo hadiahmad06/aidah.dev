@@ -184,7 +184,8 @@ const projects: Project[] = [
     link: "https://planu.mn"
   },
   {
-    title: "Analog Audio",
+    title: "Analog Audio System",
+    header: "Analog Audio",
     alias: "Variable Gain, Bass & Treble Audio Amplifier",
     type: "Course Project",
     emoji: "🎚️",
@@ -226,6 +227,7 @@ const projects: Project[] = [
     emoji: "🌎",
     startDate: "February 2026",
     endDate: "22 hours",
+    link: "https://mnhack26.vercel.app",
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
@@ -256,6 +258,7 @@ const projects: Project[] = [
   },
   {
     title: "Gene Expression Analysis",
+    header: "Gene Expression",
     alias: "Colon Cancer Gene Expression Project",
     type: "Course Project",
     emoji: "🧬",

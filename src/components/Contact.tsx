@@ -42,10 +42,10 @@ export default function Contact() {
 
           <div className="flex flex-col gap-2 items-end self-start">
             <a
-              href="mailto:hadi.ahmad.1709@icloud.com"
+              href="mailto:hadiahmadv@gmail.com"
               className="text-gray-400 hover:underline"
             >
-              hadi.ahmad.1709@icloud.com
+              hadiahmadv@icloud.com
             </a>
             <a
               href="mailto:ahmad287@umn.edu"
