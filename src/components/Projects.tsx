@@ -1,7 +1,11 @@
 "use client";
 
+<<<<<<< HEAD
 import { useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+=======
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+>>>>>>> dev
 import ReactiveButton from "./common/ReactiveButton";
 
 type Project = {
@@ -337,101 +341,107 @@ const projects: Project[] = [
   }
 ];
 
-function VideoMedia({ src, isActive }: { src: string; isActive: boolean }) {
+function VideoMedia({ src }: { src: string }) {
   const [muted, setMuted] = useState(true);
-  const [showFloating, setShowFloating] = useState(false);
-  const sentinelRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
-    if (!isActive) {
-      setShowFloating(false);
-      return;
-    }
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
 
-    const target = sentinelRef.current;
-    if (!target) return;
+    const handleTimeUpdate = () => {
+      if (el.duration) setProgress(el.currentTime / el.duration);
+    };
+    el.addEventListener("timeupdate", handleTimeUpdate);
+    return () => el.removeEventListener("timeupdate", handleTimeUpdate);
+  }, []);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const scrolledPast = entry.boundingClientRect.top < 0;
-        console.log("DEBUG_PIP", { src, top: entry.boundingClientRect.top, ratio: entry.intersectionRatio, scrolledPast });
-        setShowFloating(scrolledPast && entry.intersectionRatio < 0.3);
+        if (entry.intersectionRatio < 0.7) {
+          el.pause();
+        } else {
+          el.play().catch(() => {});
+        }
       },
-      { threshold: [0, 0.3, 1] }
+      { threshold: [0, 0.7, 1] }
     );
-    observer.observe(target);
+    observer.observe(el);
     return () => observer.disconnect();
-  }, [isActive, src]);
+  }, []);
 
-  const scrollToVideo = () => {
-    sentinelRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const seekToClientX = (clientX: number) => {
+    const bar = barRef.current;
+    const el = videoRef.current;
+    if (!bar || !el || !isFinite(el.duration)) return;
+    const rect = bar.getBoundingClientRect();
+    const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+    el.currentTime = ratio * el.duration;
+    setProgress(ratio);
   };
 
   return (
-    <>
-      <div
-        ref={sentinelRef}
-        className="group relative w-full overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+    <div className="group relative w-full overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.35)]">
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        loop
+        muted={muted}
+        playsInline
+        className="block w-full h-auto"
+      />
+      <button
+        onClick={() => setMuted((m) => !m)}
+        className="absolute bottom-8 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white opacity-100 backdrop-blur-sm transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100"
+        aria-label={muted ? "Unmute video" : "Mute video"}
       >
-        <video
-          src={src}
-          autoPlay
-          loop
-          muted={muted}
-          playsInline
-          disablePictureInPicture
-          className="block w-full h-auto"
-        />
-        <button
-          onClick={() => setMuted((m) => !m)}
-          className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100"
-          aria-label={muted ? "Unmute video" : "Mute video"}
-        >
-          {muted ? "🔇" : "🔊"}
-        </button>
-      </div>
-      {showFloating && createPortal(
-        <>
+        {muted ? (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <line x1="23" y1="9" x2="17" y2="15" />
+            <line x1="17" y1="9" x2="23" y2="15" />
+          </svg>
+        ) : (
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+          </svg>
+        )}
+      </button>
+      <div
+        ref={barRef}
+        onPointerDown={(e) => {
+          e.currentTarget.setPointerCapture(e.pointerId);
+          seekToClientX(e.clientX);
+        }}
+        onPointerMove={(e) => {
+          if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+            seekToClientX(e.clientX);
+          }
+        }}
+        className="absolute inset-x-3 bottom-2 z-10 flex h-4 cursor-pointer items-center"
+      >
+        <div className="h-1.5 w-full rounded-full bg-gray-500/60">
           <div
-            onClick={scrollToVideo}
-            className="hidden sm:block fixed bottom-6 right-6 z-50 w-72 cursor-pointer overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10 transition-transform duration-300 hover:scale-105"
-          >
-            <video
-              src={src}
-              autoPlay
-              loop
-              muted
-              playsInline
-              disablePictureInPicture
-              className="block w-full h-auto pointer-events-none"
-            />
-          </div>
-          <button
-            onClick={scrollToVideo}
-            aria-label="Scroll to project video"
-            className="bob sm:hidden fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-foreground"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-        </>,
-        document.body
-      )}
-    </>
+            className="h-full rounded-full bg-white"
+            style={{ width: `${progress * 100}%` }}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 
-function ProjectMedia({ video, image, alt, isActive }: { video?: string; image?: string; alt: string; isActive: boolean }) {
+function ProjectMedia({ video, image, alt }: { video?: string; image?: string; alt: string }) {
   if (video) {
-    return <VideoMedia src={video} isActive={isActive} />;
+    return <VideoMedia src={video} />;
   }
 
   if (image) {
@@ -594,7 +604,10 @@ export default function Projects() {
                     video={project.videos?.[0]}
                     image={project.images?.[0]}
                     alt={project.title}
+<<<<<<< HEAD
                     isActive={index === currentIndex}
+=======
+>>>>>>> dev
                   />
                 </>
               )}
