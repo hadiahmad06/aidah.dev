@@ -29,11 +29,11 @@ export default function AboutMe() {
           </div>
           <div className="flex items-center gap-4 text-gray-300 text-lg">
             <span>🎵</span>
-            <span>I mostly listen to indie rock music; my favorite song at the moment is <a href="https://www.youtube.com/watch?v=eOMpOZb4L_I" className="text-accent hover:underline">SASFM</a> by benches</span>
+            <span>I mostly listen to indie rock music; my favorite song at the moment is <a href="https://www.youtube.com/watch?v=jIwX3YozFQ4" className="text-accent hover:underline">Frances Limon</a> by Los Enanitos Verdes</span>
           </div>
           <div className="flex items-center gap-4 text-gray-300 text-lg">
             <span>📚</span>
-            <span>Before I started doomscrolling years ago, I read a lot of books. I recently started the habit again. My favorite right now is Khaled Hosseini's <a href="https://www.goodreads.com/book/show/17165596-the-kite-runner" className="text-accent hover:underline">"The Kite Runner"</a>.</span>
+            <span>Before I started doomscrolling years ago, I used to read a lot. I recently started the habit again. My favorite book right now is Khaled Hosseini's <a href="https://www.goodreads.com/book/show/17165596-the-kite-runner" className="text-accent hover:underline">"The Kite Runner"</a>.</span>
           </div>
         </div>
         <div className="flex flex-row items-center gap-4">
@@ -41,7 +41,7 @@ export default function AboutMe() {
           <span className="font-bold block">Spotify</span>
             <FontAwesomeIcon icon={faSpotify} size="2xl" />
           </a>
-            
+
           <a href="https://boxd.it/iNm8n" aria-label="Letterboxd" className="flex flex-row items-center gap-3 text-gray-300 hover:text-accent">
           <span className="font-bold block">Letterboxd</span>
             <FontAwesomeIcon icon={faLetterboxd} size="2xl" />
