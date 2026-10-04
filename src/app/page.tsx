@@ -3,6 +3,9 @@
 import Hero from "@/components/Hero/Hero";
 import Projects from "@/components/Projects";
 import AboutMe from "@/components/AboutMe";
+import Education from "@/components/Education";
+import Experience from "@/components/Experience";
+import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -171,13 +174,17 @@ export default function Home() {
       {/* About Me Section */}
       <AboutMe />
 
+      {/* Education Section */}
+      {/*<Education />*/}
+
       {/* Projects Section */}
       <Projects />
 
+      {/* Experience Section */}
+      {/*<Experience />*/}
+
       {/* Skills Section */}
-      {/* <Skills /> */}
-
-
+      {/*<Skills />*/}
 
       {/* Contact Section */}
       <Contact />

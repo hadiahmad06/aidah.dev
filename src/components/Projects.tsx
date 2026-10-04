@@ -23,22 +23,136 @@ type Project = {
 };
 
 const projects: Project[] = [
-  {
-    title: "Jiko",
-    alias: "AI Assistant",
+{
+  title: "Roominate",
+  alias: "Campus Study-Room Finder",
+  type: "Hackathon Project — 0-1 Startup Hackathon",
+  emoji: "🚪",
+  skills: ["React Native", "TypeScript", "Python", "PostgreSQL", "Supabase", "GitHub Actions"],
+  startDate: "September 2026",
+  endDate: "72 hours",
+  link: "https://roominate.me",
+  body: (
+    <div>
+      <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+      <p>
+        Roominate is a cross-platform iOS, Android, and web app that surfaces free study rooms across the University of Minnesota campus, built in 72 hours for the 0-1 Startup Hackathon.
+      </p>
+      <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+      <ul className="list-disc list-inside ml-4">
+        <li>Covers 574 rooms in 73 UMN buildings</li>
+        <li>Ranks free rooms by walking time and how long each room stays free</li>
+        <li>Flags rooms with unmaintained calendars instead of showing them as free</li>
+        <li>UI localized into 11 languages</li>
+      </ul>
+      <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+      <ul className="list-disc list-inside ml-4">
+        <li>React Native with TypeScript for the iOS, Android, and web clients</li>
+        <li>Python ETL pipeline that filters 1,100+ 25Live campus spaces down to student-accessible rooms across 4 access categories</li>
+        <li>Supabase / PostgreSQL, refreshed with ~8,500 reservations every 30 minutes via GitHub Actions</li>
+        <li>Jest, unittest, and SQL for automated testing</li>
+      </ul>
+      <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+      <ul className="list-disc list-inside ml-4">
+        <li>Moved availability computation on-device from a single shared snapshot, eliminating client calls to a feed that returned 8 MB of XML in ~10 s per 200-room query</li>
+        <li>Designed a data-trust heuristic that flags rooms with booking activity under 10% of the campus median</li>
+        <li>Validated the availability engine, scraper, and schema with 140+ automated tests</li>
+      </ul>
+    </div>
+  ),
+},
+{
+    title: "Neural Frequency System",
+    header: "Neural Frequency",
+    alias: "Real-Time EEG Neurofeedback Interface System",
     type: "Personal Project",
-    emoji: "🪷",
-    hide: true,
-    skills: ["Swift", "SwiftUI", "Node.js", "Twilio API"],
-    startDate: "October 2025",
+    emoji: "🧠",
+    skills: ["Verilog", "Vivado", "Python", "KiCad", "SKiDL"],
+    startDate: "June 2026",
     endDate: "Present",
     body: (
       <div>
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
         <p>
+          A real-time EEG neurofeedback interface: an FPGA DSP pipeline that filters 8 signal channels, an authenticated UART/BLE telemetry link, and a custom board for the analog front-end and stimulation output stage (in progress).
+        </p>
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>32 parallel FIR filters across 8 signal channels</li>
+          <li>LMS adaptive filter for artifact cancellation</li>
+          <li>AES-128-CCM authenticated UART/BLE telemetry link at 230,400 baud with hardware flow control</li>
+          <li>9-register command interface for controlling neurofeedback protocols</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Verilog and Vivado for the real-time DSP pipeline on FPGA</li>
+          <li>Q1.15 fixed-point math throughout</li>
+          <li>AES-128-CCM authenticated encryption over UART and BLE</li>
+          <li>KiCad and SKiDL for schematic and PCB design</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Kept the full filter bank within the FPGA&apos;s logic cell budget by using Q1.15 fixed-point math</li>
+          <li>Bundled 135-byte frames every 8 ms, leaving a 0.5 ms scheduling guardband over BLE&apos;s 7.5 ms floor to absorb radio-side lag</li>
+          <li>Reduced BLE power draw by ~88.4% with a 30-byte, 50 Hz packet protocol, extending total battery life by an estimated ~12%</li>
+          <li>Migrated the 9-register command interface to meet NIST SP 800-38C</li>
+          <li>Currently designing the schematic and PCB for the analog front-end and stimulation output stage</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    title: "Ultrasonic Wafer Cleaner",
+    header: "Wafer Cleaner",
+    alias: "80 kHz Ultrasonic Cleaning System for Wafer Processing",
+    type: "Minnesota Nanofabrication Club",
+    emoji: "🫧",
+    skills: ["KiCad", "SPICE", "Half-Bridge Driver", "Piezo Transducers"],
+    startDate: "September 2026",
+    endDate: "Present",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
+          An 80 kHz ultrasonic cleaning system for wafer processing, designed and built from scratch with the Minnesota Nanofabrication Club, where I lead the project.
+        </p>
+        <h4 className="font-semibold mt-4 mb-1">Features:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Custom half-bridge driver using high- and low-side N-channel MOSFETs</li>
+          <li>Three 60 W bolt-clamped piezo transducers (180 W total), driven at 100–130 V</li>
+          <li>Welded 316L stainless steel tank (20 × 30 × 20 cm)</li>
+          <li>IPA vapor-drying stage (in design)</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>KiCad</li>
+          <li>SPICE circuit simulation</li>
+          <li>Half-bridge N-channel MOSFET drive stage</li>
+          <li>Bolt-clamped piezo transducers</li>
+        </ul>
+        <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
+        <ul className="list-disc list-inside ml-4">
+          <li>Bonded the transducers at 90 mm (19λ/4) spacing to disrupt standing-wave patterns and even out cavitation across the working volume</li>
+          <li>Designing an IPA vapor-drying stage that displaces water at the meniscus during wafer cassette withdrawal, eliminating spot and residue formation</li>
+        </ul>
+      </div>
+    ),
+  },
+  {
+    title: "Jiko",
+    alias: "AI Reminder System with Behaviour Modeling",
+    type: "Personal Project",
+    emoji: "🪷",
+    skills: ["Swift", "Node.js", "AWS", "SQL", "LangChain", "Twilio API"],
+    startDate: "January 2026",
+    endDate: "May 2026",
+    body: (
+      <div>
+        <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
+        <p>
           {"Jiko is an AI-powered assistant that monitors your activity and messages you when you start doomscrolling. \
-          It uses local device analytics and behavior modeling to nudge you back toward focus, like getting a text from a friend asking if you've studied for your midterm yet.\
-          (Work in progress!)"}
+          It uses local device analytics and behavior modeling to nudge you back toward focus, like getting a text from a friend asking if you've studied for your midterm yet. \
+          The idea is to repurpose historically exploitative engagement metrics into growth-oriented insights."}
         </p>
 
         <h4 className="font-semibold mt-4 mb-1">Features:</h4>
@@ -52,13 +166,16 @@ const projects: Project[] = [
 
         <h4 className="font-semibold mt-4 mb-1">Technologies Used:</h4>
         <ul className="list-disc list-inside ml-4">
-          <li>Swift + SwiftUI for macOS and iOS agents that track app usage</li>
-          <li>Node.js backend with scheduled cron jobs and automated trigger evaluation pipelines.</li>
+          <li>Swift + SwiftUI for the iOS app and macOS companion utility, which post key events to the backend</li>
+          <li>Node.js backend on AWS EC2 with Express.js REST APIs, scheduled cron jobs, and automated trigger evaluation pipelines</li>
+          <li>S3, PostgreSQL, and DynamoDB for scalable persistent storage and TTL data pruning</li>
+          <li>Jest unit and integration tests validating API behavior across the trigger pipelines</li>
           <li>Twilio API for real-time SMS notifications</li>
         </ul>
 
         <h4 className="font-semibold mt-4 mb-1">Achievements:</h4>
         <ul className="list-disc list-inside ml-4">
+          <li>Implemented a trigger-to-action engine that delivers personalized reminders based on usage and workload metrics</li>
           <li>Built a functional macOS menu bar tracker and iOS app that detect active apps in real time</li>
           <li>Implemented automatic message dispatch through Twilio when distraction thresholds are crossed</li>
           <li>Integrated a personalized chatbot trained on my own text history</li>
@@ -336,6 +453,9 @@ const projects: Project[] = [
   }
 ];
 
+// Smallest the header tab labels may shrink to, as a fraction of their base size
+const MIN_TAB_SCALE = 0.75;
+
 function VideoMedia({ src }: { src: string }) {
   const [muted, setMuted] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -470,11 +590,20 @@ export default function Projects() {
 
     const recompute = () => {
       labels.forEach((el) => { el.style.fontSize = ""; });
-      const baseFontSize = parseFloat(getComputedStyle(labels[0]).fontSize);
+      const tabs = Array.from(row.children) as HTMLElement[];
+      const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+      const naturalWidth = tabs.reduce((sum, el) => sum + el.offsetWidth, 0) + gap * (tabs.length - 1);
+      const textWidth = labels.reduce((sum, el) => sum + el.offsetWidth, 0);
       const availableWidth = row.clientWidth;
-      const naturalWidth = row.scrollWidth;
-      const ratio = naturalWidth > availableWidth ? availableWidth / naturalWidth : 1;
-      const scaledSize = baseFontSize * ratio;
+      if (textWidth === 0 || naturalWidth <= availableWidth) return;
+
+      // Padding and gaps don't shrink with the font, so only the text width scales.
+      // Below the minimum scale the row wraps instead of shrinking further.
+      const fixedWidth = naturalWidth - textWidth;
+      const ratio = Math.max(MIN_TAB_SCALE, (availableWidth - fixedWidth) / textWidth);
+      const baseFontSize = parseFloat(getComputedStyle(labels[0]).fontSize);
+      // Floor to a tenth of a pixel so rounding never pushes the last tab onto a new row
+      const scaledSize = Math.floor(baseFontSize * ratio * 10) / 10;
       labels.forEach((el) => { el.style.fontSize = `${scaledSize}px`; });
     };
 
@@ -488,7 +617,7 @@ export default function Projects() {
     <section id="Projects" className="overflow-hidden flex-shrink-0 flex-col items-start gap-12 py-24 w-full">
       <h1 className="text-5xl font-bold text-center mb-8">Projects</h1>
       <header className="mb-6 px-8 sm:px-32">
-        <div ref={tabRowRef} className="flex justify-center sm:justify-start space-x-4">
+        <div ref={tabRowRef} className="flex flex-wrap justify-center sm:justify-start gap-x-1 sm:gap-x-4 gap-y-1">
           {visibleProjects.map((project, index) => (
             <ReactiveButton
               key={project.title}
