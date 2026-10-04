@@ -1,11 +1,6 @@
 "use client";
 
-<<<<<<< HEAD
-import { useLayoutEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-=======
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
->>>>>>> dev
 import ReactiveButton from "./common/ReactiveButton";
 
 type Project = {
@@ -127,7 +122,7 @@ const projects: Project[] = [
     endDate: "Paused",
     body: (
       <div>
-        
+
         <h3 className="font-semibold text-lg mb-2">Project Overview</h3>
         <p>
           A cross-platform workout tracker and planner designed to help users log and track long-term strength training progress efficiently.
@@ -604,10 +599,6 @@ export default function Projects() {
                     video={project.videos?.[0]}
                     image={project.images?.[0]}
                     alt={project.title}
-<<<<<<< HEAD
-                    isActive={index === currentIndex}
-=======
->>>>>>> dev
                   />
                 </>
               )}
