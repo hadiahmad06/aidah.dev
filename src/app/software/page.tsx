@@ -3,13 +3,14 @@ import Home from "@/components/Home";
 import { seo } from "@/data/profile";
 import { pageMetadata } from "@/lib/seo";
 
+// Same content as the home page in a different order, so search engines are pointed at "/"
 export const metadata: Metadata = pageMetadata({
-  title: seo.title,
-  description: seo.description,
-  path: "/",
-  absoluteTitle: true,
+  title: "Software projects",
+  description: seo.software,
+  path: "/software",
+  canonical: "/",
 });
 
 export default function Page() {
-  return <Home lens="all" />;
+  return <Home lens="sw" />;
 }

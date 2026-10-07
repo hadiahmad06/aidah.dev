@@ -1,61 +1,38 @@
-const highlights = ["University Honors Program", "Dean's List", "3.7 Technical GPA"];
+import type { Lens } from "@/data/projects";
+import { coursework, education } from "@/data/profile";
+import InlineList from "./InlineList";
+import SectionHeading from "./SectionHeading";
 
-const coursework = [
-  "Parallel Programming",
-  "Microcontrollers",
-  "Computer Architecture",
-  "Operating Systems",
-  "Digital Design",
-  "Data Modeling",
-  "Machine Learning",
-  "Signals Circuits & Electronics",
-  "Database Systems",
-];
-
-const awards = [
-  "Presidential Scholarship",
-  "Iron Range Scholarship",
-  "Dakota Electric Association Scholarship",
-];
-
-const involvement = ["Minnesota Nanofabrication Club"];
-
-function PillRow({ label, items }: { label: string; items: string[] }) {
+export default function Education({ lens }: { lens: Lens }) {
   return (
-    <div className="flex flex-col gap-2">
-      <h3 className="text-xl font-bold text-start">{label}</h3>
-      <div className="flex flex-wrap gap-2">
-        {items.map((item) => (
-          <span
-            key={item}
-            className="rounded-full border border-foreground/15 px-3 py-1 text-sm font-semibold text-gray-300"
-          >
-            {item}
-          </span>
+    <section id="education" className="pt-20 lg:pt-28">
+      <SectionHeading zone="B" title="Education" meta={education.date} />
+      <div className="flex flex-col gap-x-6 sm:flex-row sm:items-baseline sm:justify-between">
+        <h3 className="text-2xl font-semibold tracking-tight">{education.school}</h3>
+        <span className="label shrink-0">{education.location}</span>
+      </div>
+      <p className="mt-1 text-ink-2">{education.degree}</p>
+      <ul className="mt-5 flex flex-wrap gap-2">
+        {education.highlights.map((highlight) => (
+          <li key={highlight} className="border border-accent px-2.5 py-1 font-mono text-xs text-accent">
+            {highlight}
+          </li>
         ))}
-      </div>
-    </div>
-  );
-}
-
-export default function Education() {
-  return (
-    <section id="Education" className="text-white py-24 px-12 sm:px-32 flex flex-col gap-6 w-full mx-auto">
-      <h1 className="text-5xl font-bold text-center mb-4 sm:mb-0">Education</h1>
-      <div className="flex flex-col gap-1">
-        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-6">
-          <h2 className="text-3xl font-bold text-start">University of Minnesota – Twin Cities</h2>
-          <span className="text-lg text-gray-400 font-medium shrink-0">Minneapolis, MN</span>
+      </ul>
+      <div className="mt-6 border-b border-rule">
+        <div className="spec-row">
+          <div className="label">Coursework</div>
+          <InlineList items={coursework[lens]} />
         </div>
-        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-6">
-          <span className="text-lg text-gray-300">Bachelor of Science in Computer Science and Electrical Engineering</span>
-          <span className="text-sm text-gray-500 shrink-0">Expected May 2028</span>
+        <div className="spec-row">
+          <div className="label">Awards</div>
+          <InlineList items={education.awards} />
         </div>
-        <div className="mt-1 font-semibold text-accent">{highlights.join(" · ")}</div>
+        <div className="spec-row">
+          <div className="label">Involvement</div>
+          <InlineList items={education.involvement} />
+        </div>
       </div>
-      <PillRow label="Relevant Coursework" items={coursework} />
-      <PillRow label="Awards" items={awards} />
-      <PillRow label="Involvement" items={involvement} />
     </section>
   );
 }

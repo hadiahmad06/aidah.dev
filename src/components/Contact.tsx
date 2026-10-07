@@ -1,60 +1,39 @@
-export default function Contact() {
-    return (
-      <footer
-        id="Contact"
-        className="py-8 border-t border-gray-700 flex justify-start items-start"
-      >
-        <div className="w-full mx-auto flex flex-row md:flex-row items-start justify-between gap-4 md:gap-0 px-12 sm:px-16">
-          <div className="flex flex-col md:flex-row gap-2 sm:gap-6 self-start">
-            <a
-              href="https://www.linkedin.com/in/hadiahmad06"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sm:text-xl text-gray-400 hover:underline"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/hadiahmad06"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sm:text-xl text-gray-400 hover:underline"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://instagram.com/aidahdev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sm:text-xl text-gray-400 hover:underline"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://x.com/aidahdev"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sm:text-xl text-gray-400 hover:underline"
-            >
-              {"X (Twitter)"}
-            </a>
-          </div>
+import Link from "next/link";
+import { contacts, site } from "@/data/profile";
+import SectionHeading from "./SectionHeading";
 
-          <div className="flex flex-col gap-2 items-end self-start">
-            <a
-              href="mailto:hadiahmadv@gmail.com"
-              className="text-gray-400 hover:underline"
-            >
-              hadiahmadv@icloud.com
-            </a>
-            <a
-              href="mailto:ahmad287@umn.edu"
-              className="text-gray-400 hover:underline"
-            >
-              ahmad287@umn.edu
-            </a>
-          </div>
-        </div>
-      </footer>
-    );
-  }
+export default function Contact() {
+  return (
+    <section id="contact" className="pt-20 lg:pt-28">
+      <SectionHeading zone="F" title="Contact" meta={`J1 · ${contacts.length}-pin`} />
+      <a
+        href={`mailto:${site.email}`}
+        className="link text-2xl font-semibold tracking-tight break-all sm:text-4xl"
+      >
+        {site.email}
+      </a>
+      {/* Laid out as a connector pinout */}
+      <ol className="mt-8 grid border-b border-rule sm:grid-cols-2 sm:gap-x-12">
+        {contacts.map((contact, index) => (
+          <li key={contact.signal} className="grid grid-cols-[2rem_6rem_1fr] items-baseline border-t border-rule py-2.5">
+            <span className="label">{index + 1}</span>
+            <span className="label !text-ink-2">{contact.signal}</span>
+            {contact.internal ? (
+              <Link href={contact.href} className="link truncate font-mono text-[13px]">
+                {contact.value}
+              </Link>
+            ) : (
+              <a
+                href={contact.href}
+                {...(contact.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+                className="link truncate font-mono text-[13px]"
+              >
+                {contact.value}
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
