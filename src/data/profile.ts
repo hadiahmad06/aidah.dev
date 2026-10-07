@@ -182,7 +182,9 @@ export const elsewhere = [
   { label: "Letterboxd", href: "https://boxd.it/iNm8n" },
 ];
 
-export const contacts = [
+type Contact = { signal: string; value: string; href: string; internal?: boolean };
+
+export const contacts: Contact[] = [
   { signal: "Email", value: "hadiahmadv@gmail.com", href: "mailto:hadiahmadv@gmail.com" },
   { signal: "UMN", value: "ahmad287@umn.edu", href: "mailto:ahmad287@umn.edu" },
   { signal: "LinkedIn", value: "linkedin.com/in/hadiahmad06", href: "https://www.linkedin.com/in/hadiahmad06" },
@@ -190,4 +192,5 @@ export const contacts = [
   { signal: "X", value: "x.com/aidahdev", href: "https://x.com/aidahdev" },
   { signal: "Instagram", value: "instagram.com/aidahdev", href: "https://instagram.com/aidahdev" },
   { signal: "Résumé", value: "resume.pdf", href: "/resume.pdf" },
+  { signal: "Datasheet", value: "aidah.dev/datasheet", href: "/datasheet", internal: true },
 ];

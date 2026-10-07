@@ -4,12 +4,15 @@ import { site } from "@/data/profile";
 
 const ZONES = Array.from({ length: 10 }, (_, i) => i + 1);
 
+// Home, one sheet per project, then the datasheet
+export const SHEET_COUNT = projects.length + 2;
+
 // Numbered zones along the sheet edge, one per 120px grid column
 function ZoneRuler({ edge }: { edge: "top" | "bottom" }) {
   return (
     <div
       aria-hidden
-      className={`hidden grid-cols-10 border-rule-strong lg:grid ${edge === "top" ? "border-b" : "border-t"}`}
+      className={`hidden grid-cols-10 border-rule-strong lg:grid print:hidden ${edge === "top" ? "border-b" : "border-t"}`}
     >
       {ZONES.map((zone) => (
         <span key={zone} className="label border-l border-rule py-0.5 text-center first:border-l-0">
@@ -45,7 +48,7 @@ function TitleBlock({ title, sheet }: { title: string; sheet: number }) {
       <Field label="Drawn by" value={site.drawnBy} className="col-span-3 sm:col-span-2" />
       <Field label="Date" value={site.revised} className="col-span-3 sm:col-span-2" />
       <Field label="Rev" value={site.rev} className="col-span-3 sm:col-span-2" />
-      <Field label="Sheet" value={`${sheet} of ${projects.length + 1}`} className="col-span-3 sm:col-span-2" />
+      <Field label="Sheet" value={`${sheet} of ${SHEET_COUNT}`} className="col-span-3 sm:col-span-2" />
     </div>
   );
 }
@@ -65,11 +68,11 @@ export default function Sheet({
     <div
       id="top"
       data-lens={lens}
-      className="mx-auto flex min-h-screen max-w-[1200px] flex-col border-rule-strong pt-13 xl:border-x"
+      className="mx-auto flex min-h-screen max-w-[1200px] flex-col border-rule-strong pt-13 xl:border-x print:block print:min-h-0 print:max-w-none print:border-0 print:pt-0"
     >
       <ZoneRuler edge="top" />
-      <main className="flex-1 px-5 pb-24 sm:px-8 lg:px-12">{children}</main>
-      <footer className="flex flex-col items-start justify-between gap-6 px-5 pb-6 sm:flex-row sm:items-end sm:px-8 lg:px-12">
+      <main className="flex-1 px-5 pb-24 sm:px-8 lg:px-12 print:p-0">{children}</main>
+      <footer className="flex flex-col items-start justify-between gap-6 px-5 pb-6 sm:flex-row sm:items-end sm:px-8 lg:px-12 print:hidden">
         <div className="flex items-end gap-3">
           <GroundSymbol />
           <span className="label">End of sheet</span>

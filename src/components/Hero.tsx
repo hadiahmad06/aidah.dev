@@ -22,6 +22,9 @@ export default function Hero({ lens }: { lens: Lens }) {
         <a href={site.resume} target="_blank" rel="noopener noreferrer" className="btn btn-solid">
           Résumé <span aria-hidden>↓</span>
         </a>
+        <Link href="/datasheet" className="btn">
+          Datasheet
+        </Link>
         <a href="https://github.com/hadiahmad06" target="_blank" rel="noopener noreferrer" className="btn">
           GitHub
         </a>

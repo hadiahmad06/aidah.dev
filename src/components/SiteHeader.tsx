@@ -42,7 +42,7 @@ export default function SiteHeader() {
   const home = LENSES[lens].href;
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-rule-strong bg-paper/85 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-rule-strong bg-paper/85 backdrop-blur-md print:hidden">
       <div className="mx-auto flex h-13 max-w-[1200px] items-center gap-4 px-5 sm:px-8 lg:gap-8 lg:px-12">
         <Link href={onHome ? "#top" : home} className="font-mono text-[13px] font-semibold tracking-[0.12em]">
           HADI AHMAD
@@ -69,6 +69,8 @@ export default function SiteHeader() {
                   <Link
                     key={key}
                     href={LENSES[key].href}
+                    // Replace, not push: flipping lenses must not pile up history entries
+                    replace
                     scroll={false}
                     data-lens={key}
                     aria-current={key === lens ? "page" : undefined}

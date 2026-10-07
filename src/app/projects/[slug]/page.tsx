@@ -75,7 +75,7 @@ export default async function ProjectPage({ params }: Params) {
   return (
     <Sheet lens={project.primary} title={project.title} sheet={index + 2}>
       <article className="sheet-enter pt-8 lg:pt-10">
-        <BackToIndex />
+        <BackToIndex hash="projects">All projects</BackToIndex>
 
         <header className="mt-8 grid items-end gap-x-12 gap-y-8 lg:grid-cols-[1fr_24rem]">
           <div>

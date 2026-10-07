@@ -236,3 +236,43 @@ body {
     }
   }
 }
+
+/* Print: one clean page in the light palette, whatever the screen theme */
+@page {
+  size: letter;
+  margin: 0.4in;
+}
+
+@media print {
+  :root {
+    --paper: #fff;
+    --paper-raised: #fff;
+    --ink: #15171c;
+    --ink-2: #474b54;
+    --ink-3: #747881;
+    --rule: rgb(21 23 28 / 0.2);
+    --rule-strong: rgb(21 23 28 / 0.6);
+    --hw: #ad4e0a;
+    --sw: #1d4ed8;
+    color-scheme: light;
+  }
+
+  /* Spacing and type are in rem, so this scales the whole layout down to fit the page */
+  html {
+    font-size: 10px;
+  }
+
+  body {
+    background: #fff;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .sheet-enter {
+    animation: none;
+  }
+
+  .spec-row {
+    grid-template-columns: 11rem 1fr;
+  }
+}
