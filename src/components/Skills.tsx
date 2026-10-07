@@ -1,45 +1,20 @@
-const skillGroups: { label: string; skills: string[] }[] = [
-  {
-    label: "Languages",
-    skills: ["Python", "Java", "JavaScript/TypeScript", "C/C++", "Verilog", "Swift", "SQL", "HTML/CSS", "MATLAB", "R"],
-  },
-  {
-    label: "Technologies",
-    skills: ["Git/GitHub", "React/React Native", "Expo", "Node.js", "AWS", "Docker", "LangChain", "Playwright", "Vitest", "CUDA"],
-  },
-  {
-    label: "Design",
-    skills: ["Vivado", "Simulink", "KiCAD", "Altium", "LTSpice", "MPLAB"],
-  },
-  {
-    label: "Instrumentation",
-    skills: ["Spectrum Analyzer", "Oscilloscope", "DMM"],
-  },
-  {
-    label: "Spoken Languages",
-    skills: ["English (native)", "Urdu (conversational)", "Hindi (conversational)"],
-  },
-];
+import type { Lens } from "@/data/projects";
+import { skillGroups } from "@/data/profile";
+import InlineList from "./InlineList";
+import SectionHeading from "./SectionHeading";
 
-export default function Skills() {
+export default function Skills({ lens }: { lens: Lens }) {
   return (
-    <section id="Skills" className="text-white py-24 px-12 sm:px-32 flex flex-col gap-6 w-full mx-auto">
-      <h1 className="text-5xl font-bold text-center mb-4 sm:mb-0">Skills</h1>
-      {skillGroups.map((group) => (
-        <div key={group.label} className="flex flex-col gap-2">
-          <h2 className="text-xl font-bold text-start">{group.label}</h2>
-          <div className="flex flex-wrap gap-2">
-            {group.skills.map((skill) => (
-              <span
-                key={skill}
-                className="rounded-full border border-foreground/15 px-3 py-1 text-sm font-semibold text-gray-300"
-              >
-                {skill}
-              </span>
-            ))}
+    <section id="skills" className="pt-20 lg:pt-28">
+      <SectionHeading zone="D" title="Skills" />
+      <div className="border-b border-rule">
+        {skillGroups[lens].map((group) => (
+          <div key={group.label} className="spec-row">
+            <div className="label">{group.label}</div>
+            <InlineList items={group.skills} />
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }

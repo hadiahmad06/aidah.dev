@@ -1,223 +1,238 @@
-/* === Floating Stars Background === */
-
-/* CSS variables for cursor tracking */
-:root {
-  --cursor-x: 0px;
-  --cursor-y: 0px;
-}
-
-.stars {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  overflow: visible;
-  /* Move the star field slightly opposite the cursor */
-  transform: translate(
-    calc(var(--cursor-x, 0px) * -0.03),
-    calc(var(--cursor-y, 0px) * -0.03)
-  );
-  transition: transform 0.05s cubic-bezier(0.4,0,0.2,1);
-}
-
-.star {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff 70%, #c8a2ff 100%);
-  box-shadow: 0 0 6px 2px #c8a2ff88, 0 0 2px 1px #fff8;
-  opacity: 0.7;
-  animation: floatStar 4s ease-in-out infinite alternate;
-}
-
-/* Optional: for some larger/smaller stars */
-.star.star-lg {
-  width: 3.5px;
-  height: 3.5px;
-  opacity: 0.85;
-  filter: blur(0.5px);
-}
-.star.star-sm {
-  width: 1px;
-  height: 1px;
-  opacity: 0.4;
-}
-
-@keyframes floatStar {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.7;
-    filter: blur(0.1px);
-  }
-  40% {
-    opacity: 1;
-    filter: blur(0.5px);
-  }
-  60% {
-    opacity: 0.8;
-    filter: blur(0.2px);
-  }
-  100% {
-    transform: translateY(-6px) scale(1.1);
-    opacity: 0.6;
-    filter: blur(1px);
-  }
-}
 @import "tailwindcss";
 
-/* Define global CSS variables for colors and fonts */
+/* Drawing-sheet palette: paper, ink, and one colour per discipline */
 :root {
-  --background: #1e1e1e00; /* graphite background */
-  --foreground: #ededed; /* light foreground text */
-  --accent: #c8a2ff;     /* lilac accent color */
-  --secondary: #FF69B4;
-  --font-sans: 'Montserrat', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  --paper: #f5f2ea;
+  --paper-raised: #fcfbf7;
+  --ink: #15171c;
+  --ink-2: #474b54;
+  --ink-3: #747881;
+  --rule: rgb(21 23 28 / 0.16);
+  --rule-strong: rgb(21 23 28 / 0.5);
+  --grid-minor: rgb(21 23 28 / 0.04);
+  --grid-major: rgb(21 23 28 / 0.075);
+  --hw: #ad4e0a; /* copper */
+  --sw: #1d4ed8; /* blue */
+  --accent: var(--ink);
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #15151500; /* graphite background for dark mode */
-    --foreground: #ededed;
-    --accent: #c8a2ff;
-    --secondary: #FF69B4;
+    --paper: #0e1116;
+    --paper-raised: #151a21;
+    --ink: #ebe8e0;
+    --ink-2: #b1b5bd;
+    --ink-3: #7d828d;
+    --rule: rgb(235 232 224 / 0.15);
+    --rule-strong: rgb(235 232 224 / 0.45);
+    --grid-minor: rgb(235 232 224 / 0.03);
+    --grid-major: rgb(235 232 224 / 0.06);
+    --hw: #eb9a5e;
+    --sw: #86b4ff;
+    color-scheme: dark;
   }
 }
 
-body {
-  background: #1e1e1e00;
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  margin: 0;
-  padding: 0;
-  position: relative;
-  overflow-x: hidden;
-  z-index: 0;
-  /* Ensure stars are behind content */
+/* A lens, or a single project, re-points the accent at its discipline */
+[data-lens="hw"] {
+  --accent: var(--hw);
+}
+[data-lens="sw"] {
+  --accent: var(--sw);
+}
+[data-lens="all"] {
+  --accent: var(--ink);
 }
 
-/* Accent utility class */
-.accent {
-  color: var(--accent);
-}
-.secondary {
-  color: var(--secondary);
-}
-
-/* Example for lilac background highlights */
-.bg-accent {
-  background-color: var(--accent);
-}
-
-/* Cursor highlight */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: linear-gradient(
-    165deg,
-    oklch(0.17 0.05 305) 0%,
-    oklch(0.17 0.04 300) calc(25% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
-    oklch(0.17 0.04 295) calc(50% + (var(--cursor-x, 50%) - 50%) * 0.5 + (var(--cursor-y, 50%) - 50%) * 0.5),
-    oklch(0.16 0.04 290) calc(75% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
-    oklch(0.15 0.04 285) 100%
-    /* oklch(62.793% 0.25768 29.223) 0%,
-    oklch(87.27% 0.24874 148.616) calc(20% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
-    oklch(45.641% 0.31003 266.137) calc(50% + (var(--cursor-x, 50%) - 50%) * 0.5 + (var(--cursor-y, 50%) - 50%) * 0.5),
-    oklch(86.655% 0.29397 142.6) calc(80% + (var(--cursor-x, 50%) - 50%) * 0.3 + (var(--cursor-y, 50%) - 50%) * 0.3),
-    oklch(62.793% 0.25768 29.223) 100% */
-  );
-  transition: background 0.1s;
-  z-index: -1;
-}
-
-.button {
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease; /* smooth animation */
-}
-
-.button:hover {
-  transform: scale(1.05); /* grows 5% on hover */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.button::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--x,50%) var(--y,50%), oklch(1 0 0 / 0.15) 0%, rgba(0,0,0,0) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease; /* smooth fade-in/out */
-}
-
-.button:hover::after {
-  opacity: 1;
-}
-
-.button-dark {
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.button-dark:hover {
-  transform: scale(1.05); /* grows 5% on hover */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-.button-dark::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--x,50%) var(--y,50%), oklch(0 0 0 / 0.3) 0%, rgba(0,0,0,0) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease; /* smooth fade-in/out */
-}
-
-.button-dark:hover::after {
-  opacity: 1;
-}
-
-@keyframes bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); } /* moves up by 10px at midpoint */
-}
-
-.bob {
-  animation: bob 1.5s ease-in-out infinite;
+@theme inline {
+  --color-paper: var(--paper);
+  --color-raised: var(--paper-raised);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-hw: var(--hw);
+  --color-sw: var(--sw);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
-/* Optionally, you can use body::before for the star field, but .stars container is recommended for flexibility */
-/* 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  transform: translate(
-    calc(var(--cursor-x, 0px) * -0.03),
-    calc(var(--cursor-y, 0px) * -0.03)
-  );
-} 
-*/
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Grid paper: 24px minor, 120px major, with a line on the page's centre axis
+   so the 1200px sheet border lands on a major line */
+body {
+  margin: 0;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: calc(50% + 60px) 0, calc(50% + 60px) 0, calc(50% + 12px) 0, calc(50% + 12px) 0;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 22%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@layer components {
+  /* Small monospace lettering used for designators and field names */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .link {
+    text-decoration: underline;
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: 3px;
+    transition: color 0.15s, text-decoration-color 0.15s;
+  }
+  .link:hover {
+    color: var(--accent);
+    text-decoration-color: currentColor;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--rule-strong);
+    background: var(--paper-raised);
+    padding: 0.5rem 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-solid {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-solid:hover {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+
+  /* Test points: a wire across the top with a junction dot at every tap */
+  .tp {
+    position: relative;
+    border-top: 1.5px solid var(--accent);
+  }
+  .tp::before {
+    content: "";
+    position: absolute;
+    top: -4.5px;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: var(--accent);
+  }
+
+  /* Project tile: the title link stretches over the whole tile */
+  .tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--rule-strong);
+    background: var(--paper-raised);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .tile:hover,
+  .tile:focus-within {
+    border-color: var(--accent);
+    box-shadow: 4px 4px 0 0 color-mix(in oklab, var(--accent) 22%, transparent);
+  }
+  .tile-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .tile-link:focus-visible {
+    outline: none;
+  }
+  .tile-raise {
+    position: relative;
+    z-index: 1;
+  }
+  /* Outside the active lens: still listed, drawn in pencil */
+  .tile-muted {
+    --accent: var(--ink-2);
+    background: transparent;
+    border-color: var(--rule-strong);
+    border-style: dashed;
+  }
+
+  .tag-hw {
+    color: var(--hw);
+  }
+  .tag-sw {
+    color: var(--sw);
+  }
+  .tile-muted .tag-hw,
+  .tile-muted .tag-sw {
+    color: var(--ink-3);
+  }
+
+  /* Field/value rows used for education, skills, about and contact */
+  .spec-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem 1.5rem;
+    padding: 0.875rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 768px) {
+    .spec-row {
+      grid-template-columns: 11rem 1fr;
+    }
+  }
+
+  .sheet-enter {
+    animation: sheet-enter 0.35s ease-out both;
+  }
+  @keyframes sheet-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sheet-enter {
+      animation: none;
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Montserrat } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import SiteHeader from "@/components/SiteHeader";
+import { site } from "@/data/profile";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,35 +14,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-});
+const description =
+  "Electrical engineering and computer science student at the University of Minnesota. FPGA signal processing, power electronics and full-stack apps, with the numbers for each project.";
 
 export const metadata: Metadata = {
-  title: "Hadi Ahmad",
-  description: "Hi! I'm Hadi, I love making stuff that solves real problems. I've contributed to a few projects that I'm proud of.",
+  metadataBase: new URL(site.url),
+  title: {
+    default: "Hadi Ahmad · EE + CS",
+    template: "%s · Hadi Ahmad",
+  },
+  description,
   keywords: [
     "Hadi Ahmad",
+    "Electrical Engineering",
+    "Computer Science",
+    "FPGA",
+    "Verilog",
+    "DSP",
+    "PCB Design",
+    "KiCad",
     "Full-Stack Developer",
-    "Portfolio",
-    "React",
-    "Next.js",
-    "Node.js",
-    "AWS",
-    "API",
-    "JavaScript",
+    "React Native",
     "TypeScript",
-    "Web Development",
-    "Backend Development",
-    "macOS",
-    "iOS",
-    "Swift",
-    "Projects",
-    "UI/UX"
+    "Next.js",
+    "Python",
+    "University of Minnesota",
+    "Portfolio",
   ],
-  viewport: "width=device-width, initial-scale=1.0",
-  authors: [{name: "Hadi Ahmad"}]
+  authors: [{ name: site.name }],
+  openGraph: {
+    title: "Hadi Ahmad · EE + CS",
+    description,
+    url: site.url,
+    siteName: site.name,
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -50,9 +58,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+        <SiteHeader />
         {children}
       </body>
     </html>
