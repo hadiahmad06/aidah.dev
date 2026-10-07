@@ -11,10 +11,33 @@ export const site = {
   url: "https://aidah.dev",
   resume: "/resume.pdf",
   email: "hadiahmadv@gmail.com",
+  xHandle: "@aidahdev",
   // Title block fields
   drawnBy: "H. Ahmad",
   rev: "B",
   revised: "2026-10-07",
+};
+
+// What search results and link previews show
+export const seo = {
+  title: "Hadi Ahmad · EE + CS at the University of Minnesota",
+  description:
+    "Hadi Ahmad studies electrical engineering and computer science at the University of Minnesota, building from FPGA filter banks up to full-stack apps.",
+  hardware:
+    "Hardware projects by Hadi Ahmad: a real-time FPGA filter bank for EEG neurofeedback, an 80 kHz ultrasonic wafer cleaner and an LM741 audio amplifier.",
+  software:
+    "Software projects by Hadi Ahmad: a campus study-room finder built in 72 hours, a graduation planner used by 80+ students, and an AI reminder system.",
+  topics: [
+    "FPGA signal processing",
+    "Verilog",
+    "PCB design",
+    "Analog circuit design",
+    "Power electronics",
+    "React Native",
+    "TypeScript",
+    "Python",
+    "PostgreSQL",
+  ],
 };
 
 export const hero: Record<Lens, { kicker: string; positioning: string }> = {
@@ -182,15 +205,16 @@ export const elsewhere = [
   { label: "Letterboxd", href: "https://boxd.it/iNm8n" },
 ];
 
-type Contact = { signal: string; value: string; href: string; internal?: boolean };
+// profile: a public profile elsewhere, listed as sameAs in the structured data
+type Contact = { signal: string; value: string; href: string; internal?: boolean; profile?: boolean };
 
 export const contacts: Contact[] = [
   { signal: "Email", value: "hadiahmadv@gmail.com", href: "mailto:hadiahmadv@gmail.com" },
   { signal: "UMN", value: "ahmad287@umn.edu", href: "mailto:ahmad287@umn.edu" },
-  { signal: "LinkedIn", value: "linkedin.com/in/hadiahmad06", href: "https://www.linkedin.com/in/hadiahmad06" },
-  { signal: "GitHub", value: "github.com/hadiahmad06", href: "https://github.com/hadiahmad06" },
-  { signal: "X", value: "x.com/aidahdev", href: "https://x.com/aidahdev" },
-  { signal: "Instagram", value: "instagram.com/aidahdev", href: "https://instagram.com/aidahdev" },
+  { signal: "LinkedIn", value: "linkedin.com/in/hadiahmad06", href: "https://www.linkedin.com/in/hadiahmad06", profile: true },
+  { signal: "GitHub", value: "github.com/hadiahmad06", href: "https://github.com/hadiahmad06", profile: true },
+  { signal: "X", value: "x.com/aidahdev", href: "https://x.com/aidahdev", profile: true },
+  { signal: "Instagram", value: "instagram.com/aidahdev", href: "https://instagram.com/aidahdev", profile: true },
   { signal: "Résumé", value: "resume.pdf", href: "/resume.pdf" },
   { signal: "Datasheet", value: "aidah.dev/datasheet", href: "/datasheet", internal: true },
 ];

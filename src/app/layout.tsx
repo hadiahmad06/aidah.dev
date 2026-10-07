@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
-import { site } from "@/data/profile";
+import { seo, site } from "@/data/profile";
+import { pageMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,41 +15,28 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const description =
-  "Electrical engineering and computer science student at the University of Minnesota. FPGA signal processing, power electronics and full-stack apps, with the numbers for each project.";
+const home = pageMetadata({ title: seo.title, description: seo.description, path: "/", absoluteTitle: true });
 
+// Defaults for any page that sets nothing of its own. The canonical URL is deliberately
+// not among them: a page that inherited it would tell search engines it is the home page.
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: {
-    default: "Hadi Ahmad · EE + CS",
-    template: "%s · Hadi Ahmad",
-  },
-  description,
-  keywords: [
-    "Hadi Ahmad",
-    "Electrical Engineering",
-    "Computer Science",
-    "FPGA",
-    "Verilog",
-    "DSP",
-    "PCB Design",
-    "KiCad",
-    "Full-Stack Developer",
-    "React Native",
-    "TypeScript",
-    "Next.js",
-    "Python",
-    "University of Minnesota",
-    "Portfolio",
+  title: { default: seo.title, template: `%s · ${site.name}` },
+  description: home.description,
+  openGraph: home.openGraph,
+  twitter: home.twitter,
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  keywords: ["Hadi Ahmad", "electrical engineering", "computer science", "University of Minnesota", ...seo.topics],
+};
+
+// Browser chrome takes the paper colour of whichever theme is showing
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f2ea" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e1116" },
   ],
-  authors: [{ name: site.name }],
-  openGraph: {
-    title: "Hadi Ahmad · EE + CS",
-    description,
-    url: site.url,
-    siteName: site.name,
-    type: "website",
-  },
 };
 
 export default function RootLayout({

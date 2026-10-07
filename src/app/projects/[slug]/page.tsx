@@ -7,7 +7,9 @@ import DomainTags from "@/components/DomainTags";
 import SectionHeading from "@/components/SectionHeading";
 import Sheet from "@/components/Sheet";
 import VideoMedia from "@/components/VideoMedia";
+import { site } from "@/data/profile";
 import { getProject, projects, type Project } from "@/data/projects";
+import { pageMetadata } from "@/lib/seo";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -20,10 +22,20 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const project = getProject((await params).slug);
   if (!project) return {};
-  return {
+  // Lead with what it is and who built it, then as many headline figures as fit a search snippet
+  let description = `${project.tagline}, by ${site.name}.`;
+  for (const metric of project.metrics) {
+    const next = `${description} ${metric.value} ${metric.label}.`;
+    if (next.length > 160) break;
+    description = next;
+  }
+
+  return pageMetadata({
     title: project.title,
-    description: `${project.tagline}. ${project.metrics.map((metric) => `${metric.value} ${metric.label}`).join("; ")}.`,
-  };
+    description,
+    path: `/projects/${project.slug}`,
+    type: "article",
+  });
 }
 
 function Step({ index, label, items }: { index: number; label: string; items: string[] }) {

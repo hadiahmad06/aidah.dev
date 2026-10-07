@@ -8,12 +8,14 @@ import Sheet, { SHEET_COUNT } from "@/components/Sheet";
 import { characteristics, orderingSignals, part } from "@/data/datasheet";
 import { contacts, coursework, education, hero, roles, site, skillGroups, specs, tagline } from "@/data/profile";
 import { getProject, projects } from "@/data/projects";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Datasheet",
   description:
     "Hadi Ahmad on one page, laid out as a component datasheet: features, characteristics, projects, education, skills and contact.",
-};
+  path: "/datasheet",
+});
 
 const SECTION = "pt-14 lg:pt-16 print:pt-4";
 const ROW = "border-t border-rule py-2.5 print:py-0.5";
