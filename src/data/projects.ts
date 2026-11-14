@@ -475,15 +475,15 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "aidah-dev",
+    slug: "portfolio",
     ref: "U9",
-    title: "aidah.dev",
+    title: "hadiahm.ad",
     tagline: "This website",
     context: "Personal project",
     period: "September 2025 – Present",
     primary: "sw",
     domains: ["sw"],
-    link: { href: "https://aidah.dev", label: "aidah.dev" },
+    link: { href: "https://hadiahm.ad", label: "hadiahm.ad" },
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Cloudflare Workers"],
     metrics: [
       { value: "3 lenses", label: "one set of content, sorted for hardware or software" },
@@ -528,9 +528,9 @@ export const projects: Project[] = [
 
 // Tile order per lens; the first two positions get the large tiles
 const ORDER: Record<Lens, string[]> = {
-  all: ["neural-frequency", "roominate", "wafer-cleaner", "planumn", "jiko", "analog-audio", "kintsugi", "gene-expression", "aidah-dev"],
-  hw: ["neural-frequency", "wafer-cleaner", "analog-audio", "roominate", "planumn", "jiko", "kintsugi", "gene-expression", "aidah-dev"],
-  sw: ["roominate", "planumn", "jiko", "kintsugi", "neural-frequency", "gene-expression", "aidah-dev", "wafer-cleaner", "analog-audio"],
+  all: ["neural-frequency", "roominate", "wafer-cleaner", "planumn", "jiko", "analog-audio", "kintsugi", "gene-expression", "portfolio"],
+  hw: ["neural-frequency", "wafer-cleaner", "analog-audio", "roominate", "planumn", "jiko", "kintsugi", "gene-expression", "portfolio"],
+  sw: ["roominate", "planumn", "jiko", "kintsugi", "neural-frequency", "gene-expression", "portfolio", "wafer-cleaner", "analog-audio"],
 };
 
 export function getProject(slug: string): Project | undefined {

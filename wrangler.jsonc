@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "aidah-dev",
+  "name": "portfolio-worker",
   "compatibility_date": "2026-09-01",
   // wrangler does not build on its own; without this, deploy fails on a fresh checkout because ./out is missing
   "build": {
@@ -9,5 +9,18 @@
   "assets": {
     "directory": "./out",
     "not_found_handling": "404-page"
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    },
+    "traces": {
+      "enabled": false,
+      "head_sampling_rate": 1,
+      "persist": true
+    }
   }
 }
