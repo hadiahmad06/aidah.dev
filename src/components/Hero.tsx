@@ -1,9 +1,9 @@
 import Link from "next/link";
 import type { Lens } from "@/data/projects";
-import { hero, site, specs, tagline } from "@/data/profile";
+import { hero, site, specs } from "@/data/profile";
 
 export default function Hero({ lens }: { lens: Lens }) {
-  const { kicker, positioning } = hero[lens];
+  const { kicker, positioning, sub } = hero[lens];
 
   return (
     <section className="pt-12 sm:pt-16 lg:pt-20">
@@ -16,7 +16,7 @@ export default function Hero({ lens }: { lens: Lens }) {
       </p>
       <h1 className="mt-5 text-5xl font-semibold tracking-[-0.035em] sm:text-6xl lg:text-7xl">{site.name}</h1>
       <p className="mt-5 max-w-3xl text-2xl leading-snug tracking-tight text-ink sm:text-3xl">{positioning}</p>
-      <p className="mt-4 max-w-2xl text-base text-ink-2 sm:text-lg">{tagline}</p>
+      <p className="mt-4 max-w-2xl text-base text-ink-2 sm:text-lg">{sub}</p>
 
       <div className="mt-8 flex flex-wrap gap-2.5">
         <a href={site.resume} target="_blank" rel="noopener noreferrer" className="btn btn-solid">

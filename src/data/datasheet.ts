@@ -39,6 +39,14 @@ export const characteristics: { source: string; rows: Characteristic[] }[] = [
     ],
   },
   {
+    source: "gesture-wand",
+    rows: [
+      { parameter: "Static RAM used", conditions: "Full gesture library, PIC24FJ64GA002 (8 KB), XC16 map", value: "3.0", unit: "KB" },
+      { parameter: "Flash used", conditions: "Same build, 64 KB part", value: "34", unit: "%" },
+      { parameter: "C-vs-Python mismatches", conditions: "int8 60-16-9 MLP, 3,000 test vectors", value: "0", unit: "vectors" },
+    ],
+  },
+  {
     source: "planumn",
     rows: [{ parameter: "Users before release", conditions: "UMN students", value: "80+", unit: "users" }],
   },
