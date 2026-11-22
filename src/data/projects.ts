@@ -592,7 +592,7 @@ export const projects: Project[] = [
 
 // Tile order per lens; the first two positions get the large tiles
 const ORDER: Record<Lens, string[]> = {
-  all: ["neural-frequency", "roominate", "gesture-wand", "wafer-cleaner", "planumn", "jiko", "analog-audio", "kintsugi", "gene-expression", "aidah-dev"],
+  all: ["neural-frequency", "roominate", "gesture-wand", "planumn", "wafer-cleaner", "jiko", "kintsugi", "analog-audio", "gene-expression", "aidah-dev"],
   hw: ["neural-frequency", "gesture-wand", "wafer-cleaner", "analog-audio", "roominate", "planumn", "jiko", "kintsugi", "gene-expression", "aidah-dev"],
   sw: ["roominate", "planumn", "jiko", "kintsugi", "neural-frequency", "gesture-wand", "gene-expression", "aidah-dev", "wafer-cleaner", "analog-audio"],
 };

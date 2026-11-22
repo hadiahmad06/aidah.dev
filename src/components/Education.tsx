@@ -6,7 +6,7 @@ import SectionHeading from "./SectionHeading";
 export default function Education({ lens }: { lens: Lens }) {
   return (
     <section id="education" className="pt-20 lg:pt-28">
-      <SectionHeading zone="B" title="Education" meta={education.date} />
+      <SectionHeading zone="C" title="Education" meta={education.date} />
       <div className="flex flex-col gap-x-6 sm:flex-row sm:items-baseline sm:justify-between">
         <h3 className="text-2xl font-semibold tracking-tight">{education.school}</h3>
         <span className="label shrink-0">{education.location}</span>

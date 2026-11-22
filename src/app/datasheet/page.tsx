@@ -6,7 +6,7 @@ import PrintButton from "@/components/PrintButton";
 import SectionHeading from "@/components/SectionHeading";
 import Sheet, { SHEET_COUNT } from "@/components/Sheet";
 import { characteristics, orderingSignals, part } from "@/data/datasheet";
-import { contacts, coursework, education, hero, roles, site, skillGroups, specs, tagline } from "@/data/profile";
+import { contacts, coursework, education, hero, roles, site, skillGroups, specs } from "@/data/profile";
 import { getProject, projects } from "@/data/projects";
 import { pageMetadata } from "@/lib/seo";
 
@@ -71,7 +71,7 @@ export default function DatasheetPage() {
           <section className="pt-14 lg:pt-0 print:pt-0">
             <SectionHeading zone="B" title="Description" />
             <p className="text-lg leading-relaxed print:text-base">
-              {hero.all.positioning} {tagline}
+              {hero.all.positioning} {hero.all.sub}
             </p>
             <dl className="mt-5 border-b border-rule text-sm print:mt-3">
               <div className={`grid grid-cols-[5.5rem_1fr] items-baseline gap-x-4 ${ROW}`}>

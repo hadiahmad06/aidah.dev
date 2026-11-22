@@ -11,8 +11,8 @@ const STORAGE_KEY = "lens";
 
 const sections = [
   { id: "projects", label: "Projects" },
-  { id: "education", label: "Education" },
   { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
   { id: "contact", label: "Contact" },
 ];

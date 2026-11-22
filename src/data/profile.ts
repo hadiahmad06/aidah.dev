@@ -22,9 +22,9 @@ export const site = {
 export const seo = {
   title: "Hadi Ahmad · EE + CS at the University of Minnesota",
   description:
-    "Hadi Ahmad studies electrical engineering and computer science at the University of Minnesota, building from FPGA filter banks up to full-stack apps.",
+    "Hadi Ahmad studies electrical engineering and computer science at the University of Minnesota. Projects include an FPGA neurofeedback interface, an ultrasonic wafer cleaner and a campus study-room finder.",
   hardware:
-    "Hardware projects by Hadi Ahmad: a real-time FPGA filter bank for EEG neurofeedback, an 80 kHz ultrasonic wafer cleaner and an LM741 audio amplifier.",
+    "Hardware projects by Hadi Ahmad: a real-time FPGA filter bank for EEG neurofeedback, an 80 kHz ultrasonic wafer cleaner and a gesture classifier on a PIC24 microcontroller.",
   software:
     "Software projects by Hadi Ahmad: a campus study-room finder built in 72 hours, a graduation planner used by 80+ students, and an AI reminder system.",
   topics: [
@@ -40,22 +40,23 @@ export const seo = {
   ],
 };
 
-export const hero: Record<Lens, { kicker: string; positioning: string }> = {
+export const hero: Record<Lens, { kicker: string; positioning: string; sub: string }> = {
   all: {
     kicker: "University of Minnesota · Class of 2028",
-    positioning: "I build from FPGA filter banks up to full-stack apps.",
+    positioning: "I like understanding how things work well enough to build my own version of them.",
+    sub: "Right now that means an FPGA neurofeedback interface, an 80 kHz ultrasonic wafer cleaner and a gesture classifier on a 16-bit microcontroller.",
   },
   hw: {
     kicker: "Hardware view · University of Minnesota · Class of 2028",
-    positioning: "FPGA signal processing, power drive stages and analog design.",
+    positioning: "FPGA signal processing, embedded firmware, analog and power design.",
+    sub: "I like understanding how things work well enough to build my own version of them.",
   },
   sw: {
     kicker: "Software view · University of Minnesota · Class of 2028",
     positioning: "Cross-platform apps, data pipelines and the backends behind them.",
+    sub: "I like understanding how things work well enough to build my own version of them.",
   },
 };
-
-export const tagline = "I like understanding how things work well enough to build my own version of them.";
 
 export type Spec = { value: string; label: string; href: string; source: string };
 
@@ -70,15 +71,15 @@ const gpa: Spec = {
 export const specs: Record<Lens, Spec[]> = {
   all: [
     { value: "32", label: "FIR filters running in parallel on one FPGA", href: "/projects/neural-frequency", source: "Neural Frequency" },
-    { value: "~88%", label: "less BLE power draw from a custom packet protocol", href: "/projects/neural-frequency", source: "Neural Frequency" },
     { value: "574", label: "campus rooms live after a 72-hour build", href: "/projects/roominate", source: "Roominate" },
+    { value: "180 W", label: "of piezo transducers on a custom half-bridge driver", href: "/projects/wafer-cleaner", source: "Wafer Cleaner" },
     { value: "80+", label: "students using PlanUMN before release", href: "/projects/planumn", source: "PlanUMN" },
     gpa,
   ],
   hw: [
     { value: "32", label: "FIR filters running in parallel on one FPGA", href: "/projects/neural-frequency", source: "Neural Frequency" },
     { value: "~88%", label: "less BLE power draw from a custom packet protocol", href: "/projects/neural-frequency", source: "Neural Frequency" },
-    { value: "0.5 ms", label: "guardband held over BLE's 7.5 ms floor", href: "/projects/neural-frequency", source: "Neural Frequency" },
+    { value: "3.0 KB", label: "of RAM for an on-device gesture classifier", href: "/projects/gesture-wand", source: "Gesture Wand" },
     { value: "180 W", label: "of piezo transducers on a custom half-bridge driver", href: "/projects/wafer-cleaner", source: "Wafer Cleaner" },
     gpa,
   ],
