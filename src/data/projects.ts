@@ -520,17 +520,81 @@ export const projects: Project[] = [
       "Block diagrams are drawn as SVG from the data, in a horizontal layout on wide screens and a vertical one on phones.",
     ],
     result: [
-      "All nine projects sit in one grid, each with its headline number.",
+      "All ten projects sit in one grid, each with its headline number.",
       "Built as a static export and served from Cloudflare Workers.",
+    ],
+  },
+  {
+    slug: "gesture-wand",
+    ref: "U10",
+    title: "Gesture Recognition Wand",
+    tagline: "On-device gesture classifier on a 16-bit PIC24",
+    context: "Course project · EE 2361 · team of 4",
+    period: "November 2026 – Present",
+    inProgress: true,
+    primary: "hw",
+    domains: ["hw", "sw"],
+    link: { href: "https://github.com/hadiahmad06/microcontrollers-project", label: "GitHub" },
+    stack: ["C99", "PIC24 assembly", "XC16", "MPLAB X", "Python", "NumPy", "KiCad", "simavr"],
+    metrics: [
+      { value: "3.0 KB", label: "static RAM for the full classifier, on an 8 KB, no-FPU PIC24" },
+      { value: "0", label: "C-vs-Python mismatches over 3,000 int8 MLP test vectors" },
+      { value: "34%", label: "of flash used by the fully linked gesture library" },
+    ],
+    chain: ["LIS3DH", "Trigger", "Features", "int8 MLP", "8×8 RGB"],
+    diagram: {
+      caption: "From a wrist flick to an icon on the matrix",
+      nodes: [
+        { id: "imu", col: 0, row: 0, label: "LIS3DH", sub: "I2C · 100 Hz · FIFO", kind: "io" },
+        { id: "cap", col: 1, row: 0, label: "Trigger + capture", sub: "150 × 3 window" },
+        { id: "feat", col: 2, row: 0, label: "Features", sub: "60 × int16" },
+        { id: "mlp", col: 3, row: 0, label: "int8 MLP", sub: "60-16-9" },
+        { id: "dec", col: 4, row: 0, label: "Classify", sub: "confidence · reject" },
+        { id: "led", col: 5, row: 0, label: "8×8 RGB matrix", sub: "WS2812 · PIC24 asm", kind: "io" },
+        { id: "knn", col: 4, row: 1, label: "Learned gestures", sub: "k-NN · 1,200 B" },
+        { id: "uart", col: 1, row: 1, label: "UART stream", sub: "CRC-16 frames" },
+        { id: "pc", col: 0, row: 1, label: "PC toolchain", sub: "record · train · export", kind: "io" },
+      ],
+      edges: [
+        { from: "imu", to: "cap" },
+        { from: "cap", to: "feat" },
+        { from: "feat", to: "mlp" },
+        { from: "mlp", to: "dec" },
+        { from: "dec", to: "led" },
+        { from: "knn", to: "dec" },
+        { from: "cap", to: "uart" },
+        { from: "uart", to: "pc" },
+      ],
+    },
+    problem: [
+      "A handheld wand should recognise a motion as one of 8 gestures and show an icon for it, with the whole classifier running on the wand itself. The target is a PIC24FJ64GA002: 16 MIPS, 8 KB of RAM, 64 KB of flash, no FPU.",
+    ],
+    constraint: [
+      "Typical TinyML stacks assume floating point, a 32-bit core or far more RAM.",
+      "XC16's int is 16 bits, so a missing cast that overflows on the target passes every test run on a 32-bit laptop.",
+      "The model is trained in Python, so the firmware has to reproduce the Python result exactly, or a result on the device can't be checked.",
+    ],
+    decision: [
+      "Integer-only pipeline: 60 segment features (mean plus isqrt energy about the mean, chosen after comparing six variants), an int8 60-16-9 MLP with per-channel requantisation, and a split 16×16 multiply that avoids int64 on a 16-bit core.",
+      "A k-NN stage on the same int8 inputs lets a user teach up to 4 extra gestures on the device, without retraining. It overrides only a weak MLP result.",
+      "Every numeric C module has a bit-exact Python twin, and every C test suite also runs on a 16-bit AVR under simavr to catch integer-promotion bugs that host tests miss.",
+      "A CRC-framed binary UART protocol feeds a Python toolchain: a serial recorder, a fake wand on a pseudo-terminal, a NumPy trainer that picks checkpoints by integer-path accuracy, and an exporter that refuses out-of-range quantisation instead of clamping.",
+      "Drivers written from scratch: an LIS3DH FIFO driver, an interrupt-driven UART ring buffer, a bounded-wait I2C layer and a cycle-counted WS2812 driver in PIC24 assembly.",
+    ],
+    result: [
+      "The full library links at 22.8 KB of flash (34%) and 3.0 KB of static RAM (37%), per the XC16 map file.",
+      "0 mismatches between C and Python over 3,000 MLP vectors. Bugs injected into the feature, requantisation and k-NN code passed on the host and failed on the 16-bit simulator.",
+      "Brought up on a breadboard, with debug modes including a tilt visualiser on the 8×8 matrix.",
+      "In progress: recording real gestures. The only model so far is trained on synthetic data, so no accuracy figure yet. Light bulb control is not built.",
     ],
   },
 ];
 
 // Tile order per lens; the first two positions get the large tiles
 const ORDER: Record<Lens, string[]> = {
-  all: ["neural-frequency", "roominate", "wafer-cleaner", "planumn", "jiko", "analog-audio", "kintsugi", "gene-expression", "aidah-dev"],
-  hw: ["neural-frequency", "wafer-cleaner", "analog-audio", "roominate", "planumn", "jiko", "kintsugi", "gene-expression", "aidah-dev"],
-  sw: ["roominate", "planumn", "jiko", "kintsugi", "neural-frequency", "gene-expression", "aidah-dev", "wafer-cleaner", "analog-audio"],
+  all: ["neural-frequency", "roominate", "gesture-wand", "wafer-cleaner", "planumn", "jiko", "analog-audio", "kintsugi", "gene-expression", "aidah-dev"],
+  hw: ["neural-frequency", "gesture-wand", "wafer-cleaner", "analog-audio", "roominate", "planumn", "jiko", "kintsugi", "gene-expression", "aidah-dev"],
+  sw: ["roominate", "planumn", "jiko", "kintsugi", "neural-frequency", "gesture-wand", "gene-expression", "aidah-dev", "wafer-cleaner", "analog-audio"],
 };
 
 export function getProject(slug: string): Project | undefined {
