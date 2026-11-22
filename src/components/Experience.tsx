@@ -4,7 +4,7 @@ import SectionHeading from "./SectionHeading";
 export default function Experience() {
   return (
     <section id="experience" className="pt-20 lg:pt-28">
-      <SectionHeading zone="C" title="Experience" />
+      <SectionHeading zone="B" title="Experience" />
       <ul className="border-b border-rule">
         {roles.map((role) => (
           <li key={role.title} className="spec-row">

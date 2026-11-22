@@ -5,7 +5,7 @@ const shareImage = {
   url: "/og.png",
   width: 1200,
   height: 630,
-  alt: "Hadi Ahmad, EE + CS at the University of Minnesota. I build from FPGA filter banks up to full-stack apps.",
+  alt: "Hadi Ahmad, EE + CS at the University of Minnesota. I like understanding how things work well enough to build my own version of them.",
 };
 
 // A page-level openGraph or twitter object replaces the root one wholesale, share image included,

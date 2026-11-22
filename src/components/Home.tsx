@@ -15,8 +15,8 @@ export default function Home({ lens }: { lens: Lens }) {
       <ProfileJsonLd />
       <Hero lens={lens} />
       <ProjectGrid lens={lens} />
-      <Education lens={lens} />
       <Experience />
+      <Education lens={lens} />
       <Skills lens={lens} />
       <About />
       <Contact />
