@@ -11,10 +11,11 @@ const SLOTS: { size: TileSize; span: string }[] = [
   { size: "md", span: "md:col-span-2 lg:col-span-4" },
   { size: "md", span: "md:col-span-2 lg:col-span-4" },
   { size: "md", span: "md:col-span-2 lg:col-span-4" },
-  { size: "sm", span: "md:col-span-3 lg:col-span-3" },
-  { size: "sm", span: "md:col-span-3 lg:col-span-3" },
-  { size: "sm", span: "md:col-span-3 lg:col-span-3" },
-  { size: "sm", span: "md:col-span-3 lg:col-span-3" },
+  { size: "md", span: "md:col-span-2 lg:col-span-4" },
+  { size: "md", span: "md:col-span-2 lg:col-span-4" },
+  { size: "md", span: "md:col-span-2 lg:col-span-4" },
+  { size: "sm", span: "md:col-span-3 lg:col-span-6" },
+  { size: "sm", span: "md:col-span-3 lg:col-span-6" },
 ];
 
 export default function ProjectGrid({ lens }: { lens: Lens }) {
